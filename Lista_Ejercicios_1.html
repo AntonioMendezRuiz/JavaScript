@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lista ejercicios 1</title>
+    <script>
+        function tablaMultiplicar(n){
+            var salida = "";    
+            for (var i = 0; i <= 10; i++)
+            {
+                salida += n + " X " + i + " = " + (n*i) + "</br>"; 
+            }
+            return salida;
+            }
+
+        onchange = function(){
+            document.getElementsByTagName("button")[0].onclick = document.getElementById("tabla").innerHTML = 
+            tablaMultiplicar(document.getElementById("numero").value);
+        }
+        onload = function(){
+        document.getElementsByTagName("button")[1].onclick = 
+            function(){
+                document.getElementById("tabla").innerHTML = ""; 
+                }
+        }
+    </script>
+</head>
+<body>
+    
+    <h1>Tabla de multiplicar</h1>
+    <input type="number" min = "1" max = "10" id = "numero">
+    <button>Generar tabla</button>
+    <button>Limpiar</button>
+    <div id = "tabla">
+
+
+    </div>
+    
+</body>
+</html>
