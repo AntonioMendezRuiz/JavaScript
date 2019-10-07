@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejercicio calculadora</title>
+
+    <script>        
+        function conversor(n){
+            document.getElementById("resultado").value = 
+            Number(document.getElementById("numero").value).toString(n).toUpperCase();  
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id = "numero"><br>
+    <button id = "bina" onclick="conversor(2)">Convertir a Binario</button><br>
+    <button id = "oct" onclick="conversor(8)">Convertir a Octal</button><br>
+    <button id = "hexa" onclick="conversor(16)">Convertir a Hexadecimal</button><br>
+    <input type="text" id = "resultado" readonly>
+</body>
+</html>

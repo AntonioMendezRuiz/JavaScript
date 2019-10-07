@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejercicio 5</title>
+    <script>
+        //Leer una cadena de texto mediante el método prompt() y generar un array con
+        //las palabras que contiene. Posteriormente, mostrar la siguiente información:
+        //· Número de palabras
+        //· Primera palabra y última palabra
+        //· Las palabras colocadas en orden inverso
+        //· Las palabras ordenadas de la a la z
+        //· Las palabras ordenadas de la z a la a 
+    
+        var person = prompt("Introduce una cadena:")
+        if (person != null)
+        {
+            var arr = person.split(" ");
+            console.log(arr);
+        }
+        onload =function(){
+
+        function contar(){
+            document.getElementById("a").innerHTML = parseInt(arr.length);
+            console.log("se ejecuta");
+        }
+        function primyult(arr)
+        {
+            document.getElementById("b").innerHTML = arr[0] && arr[arr.length];
+        }
+        function inverso(arr){
+            var arr2;
+            for(var i = arr.length; i > 0; i--)
+            {
+                var j = 0;
+                arr2[j] = arr[i];
+                j++;
+            }
+             document.getElementById("c").innerHTML = arr2;
+        }
+        function orden(arr){
+            document.getElementById("d").innerHTML = arr.sort.toString;
+        }
+
+        function ordenInverso(arr){
+            var arr3;
+            for(var i = 0; i < arr.length; i++)
+            {
+                for(var j = arr.length; j> 0; j--)
+                {
+                    arr3[i] = arr[j];
+                }
+            }
+           document.getElementById("e").innerHTML = arr3;
+        }
+    }
+
+
+    </script>
+</head>
+<body>
+    <h1>Información de la cadena</h1>
+    <button id = "a" onclick="contar()">Número de palabras</button>
+    <p>Primera palabra y última: </p><p id = "b"></p>
+    <p>Orden inverso: </p><p id = "c"></p>
+    <p>Palabras ordenadas alfabéticamente: </p><p id = "d"></p>
+    <p>Palabras ordenadas alfabéticamente al revés: </p><p id = "e"></p>
+</body>
+</html>
