@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejercicio 8</title>
+    <script>
+        
+        var letrasPosibles = "TRWAGMYFPDXBNJZSQVHLCKE";
+        var arr = letrasPosibles.split("");
+        arr.sort();
+
+        function comprobar(){
+            var dni = document.getElementById("dni").value;
+            var letra = document.getElementById("letra").value;
+            if (letra === letrasPosibles[dni%23])
+            {
+                alert("correcto");
+            }
+            else{
+                alert("Incorrecto");
+            }
+        }
+    
+    </script>
+</head>
+<body>
+    <h1>Comprobación de la letra del NIF</h1>
+    <input type="number" id="dni">
+    <select id="letra">
+        <script>
+            for(var i = 0; i < arr.length; i++)
+            {
+                document.write(`<option value = "${arr[i]}">${arr[i]}</option>`);
+            }
+        </script>
+    </select>
+    <button id = "comprobar" onclick= "comprobar()">Comprobar</button>
+</body>
+</html>
