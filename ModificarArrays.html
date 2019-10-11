@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modifica Arrays</title>
+    <script>
+
+        var arr = [];
+
+        var modificaArray = function(num){
+            var valor = document.getElementById("valor").value;
+            switch (num){
+                case 1: arr.unshift(valor);
+                break;
+                case 2: arr.push(valor);
+                break;
+                case 3: arr.shift(valor);
+                break
+                case 4: arr.pop(valor);
+                break;
+            }
+            console.log(arr);
+        }
+        
+    </script>
+</head>
+<body>
+    <p>Nuevo valor</p>
+    <input type="text" id="valor">
+    <button onclick="modificaArray(1)">Añadir al principio</button>
+    <button onclick="modificaArray(2)">Añadir al final</button>
+    <button onclick="modificaArray(3)">Borrar del principio</button>
+    <button onclick="modificaArray(4)">Borrar del final</button>
+</body>
+</html>

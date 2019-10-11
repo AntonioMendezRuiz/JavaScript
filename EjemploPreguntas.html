@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejemplo preguntas</title>
+    <script>
+        var preguntas = [
+            {
+                pregunta: "¿Cuanto es 1 + 1?",
+                respuestas: ["2", "1", "7"],
+                correcta : 1
+            },
+            {
+                pregunta: "¿Cuanto es 2 + 1?",
+                respuestas: ["2", "3", "7"],
+                correcta : 2
+            },
+            {
+            pregunta: "¿Cuanto es 3 + 4?",
+            respuestas: ["2", "1", "7"],
+            correcta : 3
+            }
+        ];
+
+        preguntas.sort(function(){
+            return 0.5 - Math.random();
+        });
+
+        window.onload = function(){
+            var test = "";
+            preguntas.forEach(function(elemento, indice){
+                test += `<p> ${indice+1}. ${elemento.pregunta}</p>`;
+            
+            elemento.respuestas.forEach(function(respuestas, indice2){
+                var valor = elemento.correcta == indice2? "y":"n";
+                test +=`<input type ="radio" name ="${indice}" value="${valor}">${respuestas}<br>`;
+                });
+            });
+            document.getElementById("test").innerHTML = test;
+        }
+        
+        var corregir = function(){
+            var aciertos = 0;
+            var fallos = 0;
+            var inputs = document.getElementsByTagName("input");
+            for(var i = 0; i < inputs.length; i++){
+                if(inputs[i].checked){
+                    if(inputs[i].value == "y"){
+                        aciertos++;
+                    }else{
+                        fallos++;
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Mini-Test</h1>
+    <div id="test"></div>
+    <button onclick="corregir()">Corregir</button>
+</body>
+</html>
