@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejemplo de formulario</title>
+    <script>
+        var validar = function(){
+            var enviar = true;
+            var salida = "";
+            var campo1 = document.getElementById("campo1").value;
+            if(!/\S/.test(campo1)){
+               salida += "El campo 1 no es correcto";
+               enviar = false;
+            }
+            
+            document.getElementById("salida").innerHTML = salida;
+            return enviar;
+        }
+        var control = function(){
+            var cb = document.getElementById("campo2");
+            if(cb.checked){
+            document.getElementById("submit").disabled = false;
+            }
+            else{
+                document.getElementById("submit").disabled = true;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Formularios</h1>
+    <form action="#" method="get" onsubmit="validar()">
+        <p>Campo de texto <input type="text" id="campo1"></p>
+        <p>Checkbox <input type="checkbox" id="campo2" onclick="control()"></p>
+        <p>Radio button 
+            <input type="radio" name ="radio" id = "r1">
+            <input type="radio" name ="radio" id = "r2">
+            <input type="radio" name ="radio" id = "r3">
+        </p>
+        <p>Menú de selecció
+            <select name="select" id="select">
+                <option value="0">--Elegir--</option>
+                <option value="1">Opción 1</option>
+                <option value="2">Opción 2</option>
+                <option value="3">Opción 3</option>
+            </select></p>
+        <input type="submit" id = "submit" disabled>
+    </form>
+    <p id = "salida"></p>
+    </body>
+</html>
