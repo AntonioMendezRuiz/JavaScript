@@ -6,34 +6,71 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cronómetro</title>
     <script>
-        window.onload = function(){
-            time = document.getElementById("tiempo");
-            var inicio = new Date().getTime();
-            var result=LeadingZero(diff.getUTCHours())+":"+LeadingZero(diff.getUTCMinutes())+":"+LeadingZero(diff.getUTCSeconds());
-		    document.getElementById('tiempo').innerHTML = result;
-        
-            function start(inicio){
-                var actual = new Date().getTime();
-                var diferencia = new Date(actual - inicio);
-            }
-            function stop(actual){
-                document.getElementById("tiempo").innerHTML = actual;
-            }
-            function reset () {
-                document.getElementById("tiempo").innerHTML = "00 : 00 : 00";
-            }
-            function LeadingZero(Time) {
-		    return (Time < 10) ? "0" + Time : + Time;
-	    }
+        window.onload = function() {
+            reloj = document.getElementById("time");
         }
-    </script>
-</head>
-<body>
-    <div id = "cronometro">
-        <div id = "tiempo">00 : 00 : 00</div>
-        <button id = "start" onclick = start()>Start</button>
-        <button id = "stop" onclick = stop()>Stop</button>
-        <button id = "reset" onclick = reset()>Reset</button>
-    </div>
-</body>
+        var cronos;
+        var ahora;
+        var transcurrido;
+         function init() {
+           ahora = new Date();
+           document.getElementById("inicio").disabled = true;
+           cronos = setInterval(timer, 10);
+           
+         }
+         function timer() {
+           var d = new Date();
+           transcurrido = d - ahora;
+           var guardamos = new Date();
+           guardamos.setTime(transcurrido);
+           var milisegundos = guardamos.getMilliseconds();
+           milisegundos = Math.round(milisegundos/10);
+           var segundos = guardamos.getSeconds();
+           var minutos = guardamos.getMinutes();
+           var horas = guardamos.getHours() - 1;
+           if (milisegundos <10) {
+               milisegundos="0"+milisegundos;
+            }
+           if (segundos<10) {
+               segundos="0"+segundos;
+            }
+           if (minutos<10) {
+                minutos="0"+minutos;
+           }
+           reloj.innerHTML = horas + ":" + minutos + ":" + segundos +":" + milisegundos;
+           document.getElementById("inicio").disabled = false;
+         }
+        function continuar(){
+            emp2 = new Date(); 
+            emp2 = emp2.getTime(); 
+            emp3 = emp2-transcurrido; 
+            emp = new Date(); 
+            emp.setTime(emp3); 
+            cronos = setInterval(timer,10); 
+            document.getElementById("continue").disabled = true;
+            document.getElementById("continue").disabled = true;
+        }
+        function reset() {
+            stop();
+            document.getElementById('time').innerHTML = "0:00:00:00";
+            document.getElementById("inicio").disabled = false;
+         }
+         function stop() {
+           clearInterval(cronos);
+           document.getElementById("inicio").disabled = true;
+           document.getElementById("continue").disabled = false;
+         }
+       </script>
+   
+     </head>
+   
+     <body>
+   
+         <input type="button" id = "inicio" value="Start" onclick="init()"/> 
+         <input type="button" id = "continue" value="Continue" onclick="continuar()" disabled/>
+         <input type="button" value="Reset" onclick="reset()"/>
+         <input type="button" value="Stop" onclick="stop()"/><br><br>
+         <div id = "time"> 0:00:00:00</div>
+   
+     </body>
 </html>
