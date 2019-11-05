@@ -52,7 +52,8 @@
         function reset() {
             stop();
             document.getElementById('time').innerHTML = "0:00:00:00";
-            document.getElementById("inicio").disabled = false;
+            document.getElementById("inicio").disabled = false
+            document.getElementById("continue").disabled = true;
          }
          function stop() {
            clearInterval(cronos);
@@ -63,7 +64,7 @@
 
        <style>
         html{
-          background-color: darkslategrey;
+          background-color:#2d2c40;
          }
        .container{
         display: flex;
@@ -87,9 +88,13 @@
         font-size: 16px;
         font-weight: bold;
        }
-       input:disabled{
+       input:hover{
          color: red;
          background-color: black;
+       }
+       input:disabled{
+         color:darkslategray;
+         background-color: gray;
        }
        #time{
          font-size: 150px;
