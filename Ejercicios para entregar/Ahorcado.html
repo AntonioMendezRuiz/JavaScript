@@ -125,9 +125,9 @@
     <h2 class = "his">Historial</h2>
     <div id="historial"></div>
     <div id = "final"></div>
-
+    <script src="diccionario.js"></script>
     <script>
-            var palabras = ['COCHE', 'AVION', 'CLASE', 'MIRADOR', 'FUTBOL', 'BARCO', 'AHORCADO', 'JAVASCRIPT'];
+            var palabras = JSON.parse(diccionario);
             var arrayPalabra = [];
             var palabraMostrar = [];
             var palabraElegida;
@@ -137,7 +137,7 @@
                 return Math.round(Math.random() * (max - min) + min);
             }
             var prepararJuego = function(){
-                palabraElegida = palabras[getRandom(0,palabras.length - 1)];
+                palabraElegida = palabras[getRandom(0,palabras.length - 1)].toUpperCase();
                 palabraMostrar = palabraElegida.split('');
                 console.log(palabraMostrar);
                 for (var letra of palabraMostrar) {
@@ -185,6 +185,7 @@
                     bot.forEach(element => {
                         element.disabled = true;
                     });
+                    document.getElementById('resultado').innerHTML = palabraMostrar.join(' ');
                 }
             }
             var reiniciar = function(){
