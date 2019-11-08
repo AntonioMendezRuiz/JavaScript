@@ -41,14 +41,22 @@
     }
     .botones button{        
         margin-top: 5px;
+        text-decoration: none;
+        border: 1px double black;
+        color:black;
+        background-color: white;
     }
     #intentos{     
         grid-column: 6/8;
         grid-row: 3/3;
         text-align: left;
     }
-    .botones button:disabled{
+    .botones button:hover{
+        color:white;
         background-color: black;
+    }
+    .botones button:disabled{
+        background-color: gray;
         color: black;
         border-color: black;
         
@@ -69,9 +77,9 @@
         text-align: right;
     }
     #final{
-        grid-column: 3/6;
+        grid-column: 1/8;
         grid-row: 5/8;
-        text-align: right;
+        text-align: center;
         align-items: center;
         font-size: 80px;
         color:red;
