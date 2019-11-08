@@ -82,33 +82,33 @@
 <body>
     <div id="resultado"></div>
     <div class="botones">
-        <button name ="bot" onclick = "comprobarLetra(this)">A</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">B</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">C</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">D</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">E</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">F</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">G</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">H</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">I</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">J</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">K</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">L</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">M</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">N</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">Ñ</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">O</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">P</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">Q</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">R</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">S</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">T</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">U</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">V</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">W</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">X</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">Y</button>
-        <button name ="bot" onclick = "comprobarLetra(this)">Z</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">A</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">B</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">C</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">D</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">E</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">F</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">G</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">H</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">I</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">J</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">K</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">L</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">M</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">N</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">Ñ</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">O</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">P</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">Q</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">R</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">S</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">T</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">U</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">V</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">W</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">X</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">Y</button>
+        <button  class ="bot" onclick = "comprobarLetra(this)">Z</button>
     </div>
     <button id = "reiniciar" onclick = "reiniciar()" disabled>Volver a jugar</button>
     
@@ -165,12 +165,18 @@
                 if (!arrayPalabra.includes('_')) {
                     document.getElementById("final").innerHTML = "HAS GANADO";
                     document.getElementById("reiniciar").disabled = false;
-                    document.getElementsByName("bot").disabled = true;
+                    var bot = document.querySelectorAll(".bot");
+                    bot.forEach(element => {
+                        element.disabled = true;
+                    });
                 }
                 if (numIntentos == 0) {
                     document.getElementById("final").innerHTML = "HAS PERDIDO";
                     document.getElementById("reiniciar").disabled = false;
-                    document.getElementsByName("bot").disabled = true;
+                    var bot = document.querySelectorAll(".bot");
+                    bot.forEach(element => {
+                        element.disabled = true;
+                    });
                 }
             }
             var reiniciar = function(){
