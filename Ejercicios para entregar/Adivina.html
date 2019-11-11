@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Adivina el número</title>
+    <script>
+
+        function getRandom(min, max) {
+        return Math.random() * (max - min) + min;
+        }
+        var aleatorio = Math.round(getRandom(1, 100));
+        console.log(aleatorio)
+        var crear = function(){
+            var botones = document.getElementById("botones");
+            for (var i = 1; i <= 100; i++){
+                botones.innerHTML += `<input type ="button" id="boton${i}" onclick="comprobar(this)" value=${i}>`
+            }
+        }
+        var comprobar = function(boton){
+            console.log(boton)
+            var valor = parseInt(boton.value, 10);
+            console.log(valor)
+            
+            if(valor < aleatorio){
+                for (var i = 1; i <= valor; i++){
+                    document.getElementById(`boton${i}`).disabled = true;
+                }
+            }else if(valor == aleatorio){
+                    document.getElementById("resultado").innerHTML = "FELICIDADES"
+                    for (var i = 1; i <= 100; i++){
+                    document.getElementById(`boton${i}`).disabled = true;
+                }
+            }else{
+                for (var i = 100; i >= valor; i--){
+                    document.getElementById(`boton${i}`).disabled = true;
+                }
+            }
+        }
+        
+        var reiniciar = function(){
+                location.reload(true);
+            }
+        onload = () =>{
+            crear();
+        }
+    </script>
+    <style>
+        body{
+            background-color: darkslategrey;
+        }
+        h1{
+            text-align: center;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 4rem;
+        }
+        #botones{
+            display: grid;
+            grid-template-columns: repeat(10, max-content);
+            grid-template-rows: repeat(10,max-content) ;
+            justify-content: center;
+        }
+        #botones input{
+            background-color: darkred;
+            border: 1px solid black;
+            color: black;
+            height: 3.5rem;
+            width: 3.5rem;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+        #botones input:disabled{
+            background-color: darkgray;
+            border: 1px solid black;
+            color: darkred;
+        }
+        #botones input:hover{
+            background-color: white;
+            border: 1px solid yellow;
+            color: black;
+        }
+        #resultado{
+            text-align: center;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 4rem;
+        }
+        .container{
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: repeat(2,max-content);
+            justify-items: center;
+            text-align: center;
+        }
+        #reiniciar{
+            margin-top: 2rem;
+            background-color: black;
+            border: 1px solid white;
+            color: white;
+            height: 2rem;
+            width: 8rem;
+        }
+        #reiniciar:hover{
+            margin-top: 2rem;
+            background-color: white;
+            border: 1px solid black;
+            color: black
+        }
+    </style>
+</head>
+<body>
+    <h1>Adivina el número</h1>
+    <div id = "botones">
+
+    </div>
+    <div class="container">
+        <button id="reiniciar" onclick="reiniciar()">Reiniciar</button>
+        <div id = "resultado"></div>
+    </div>
+</body>
+</html>
