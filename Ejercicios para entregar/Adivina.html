@@ -19,9 +19,7 @@
             }
         }
         var comprobar = function(boton){
-            var valor = parseInt(boton.value, 10);
-            console.log(valor)
-            
+            var valor = parseInt(boton.value, 10); 
             if(valor < aleatorio){
                 for (var i = 1; i <= valor; i++){
                     document.getElementById(`boton${i}`).disabled = true;
