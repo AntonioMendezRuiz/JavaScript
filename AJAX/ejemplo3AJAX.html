@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejemplo 3 AJAX</title>
+    <script>
+
+        let xhttp = new XMLHttpRequest();
+        var cargaPHP = function () {
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("salida").innerHTML = this.responseText;
+                }
+            }
+            xhttp.open("GET", "datos.php?n=" + document.getElementById("numero").value, true);
+            xhttp.send();
+        }
+
+    </script>
+</head>
+
+<body>
+    <input type="number" id = "numero">
+    <button onclick="cargaPHP()"> Cargar </button>
+    <div id="salida"></div>
+</body>
+
+</html>

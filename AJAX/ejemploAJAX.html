@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejemplo AJAX</title>
+    <script>
+        window.onload = function () {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                console.log(this.readyState);
+                if (this.readyState == 4) {
+                    console.log(this.status + " " + this.statusText);
+                    console.log(typeof this.responseText)
+                    console.log(this.responseText)
+                    document.getElementById("mostrar"). innerHTML = this.responseText;
+                }
+            }
+            xhttp.open("GET", "datos.txt", true);
+            xhttp.send();
+        }
+    </script>
+</head>
+
+<body>
+    <div id="mostrar">
+
+
+    </div>
+</body>
+
+</html>
