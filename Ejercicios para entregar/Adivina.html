@@ -12,12 +12,16 @@
         }
         var aleatorio = Math.round(getRandom(1, 100));
         console.log(aleatorio)
+
+        //Crea los botones con los numeros desde el 0 al 100
         var crear = function(){
             var botones = document.getElementById("botones");
             for (var i = 1; i <= 100; i++){
                 botones.innerHTML += `<input type ="button" id="boton${i}" onclick="comprobar(this)" value=${i}>`
             }
         }
+        
+        //Función que comprueba si el número ha sido acertado y en caso de que no, descarta los superiores o inferiores
         var comprobar = function(boton){
             var valor = parseInt(boton.value, 10); 
             if(valor < aleatorio){

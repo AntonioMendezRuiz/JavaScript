@@ -12,6 +12,8 @@
         var cronos;
         var ahora;
         var transcurrido;
+
+        //Generamos una fecha y un intervalo 
         function init() {
            ahora = new Date();
            document.getElementById("inicio").disabled = true;
@@ -19,6 +21,8 @@
            document.getElementById("reset").disabled = false;
            cronos = setInterval(timer, 10);
          }
+
+         //Esta función se encarga de restar la fecha actual con la inicial para obtener el numero de milisegundos trasncurridos entre ellas
         function timer() {
            var d = new Date();
            transcurrido = d - ahora;
@@ -41,6 +45,7 @@
            reloj.innerHTML = horas + ":" + minutos + ":" + segundos +":" + milisegundos;
            
         }
+       //Esta función vuelve a generar otra fecha para la función timer
         function continuar(){
             emp2 = new Date(); 
             emp2 = emp2.getTime(); 

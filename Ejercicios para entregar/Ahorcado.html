@@ -127,29 +127,54 @@
     <div id = "final"></div>
     <script src="diccionario.js"></script>
     <script>
+
+            //Enlazamos el documento JSON con nuestro archivo
             var palabras = JSON.parse(diccionario);
+
+            //Creamos variables
             var arrayPalabra = [];
             var palabraMostrar = [];
             var palabraElegida;
             var historialLetras = [];
             var numIntentos = 8;
+
+            //Variables para quitar hacentos y diacríticos
+            var especial = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛ";
+            var normal = "AAAAAEEEEIIIIOOOOUUUU";
+
+
             function getRandom(min, max) {
                 return Math.round(Math.random() * (max - min) + min);
             }
+            //Función que prepara las palabras que se van a mostrar
             var prepararJuego = function(){
                 palabraElegida = palabras[getRandom(0,palabras.length - 1)].toUpperCase();
                 palabraMostrar = palabraElegida.split('');
+
+                //Quitamos los acentos
+                for(var i = 0; i < especial.length; i++){
+                    if (palabraMostrar.includes(especial[i])){
+                        var n = palabraMostrar.indexOf(especial[i]);
+                        palabraMostrar[n] = normal[i];
+                    }
+                }
+
+                //Mostramos palabra seleccionada para poder comprobar
                 console.log(palabraMostrar);
                 for (var letra of palabraMostrar) {
                     arrayPalabra.push('_');
                 }
                 dibujarJuego();
             }
+
+            //Función que muestra el juego
             var dibujarJuego = function () {
                 document.getElementById('resultado').innerHTML = arrayPalabra.join(' ');
                 document.getElementById('intentos').innerHTML = numIntentos;
                 document.getElementById('historial').innerHTML = historialLetras.join(' - ');
             }
+
+            //Comprobamos si las letras pulsadas estan en la palabra
             var comprobarLetra = function(boton){
                 var letraUsuario = boton.innerHTML;
                 for (var [index, letraAdivinar] of palabraMostrar.entries()) {
@@ -169,6 +194,8 @@
                 acabarJuego();
                
             }
+            
+            //Función que determina si has ganado el juego o no 
             var acabarJuego = function () {
                 if (!arrayPalabra.includes('_')) {
                     document.getElementById("final").innerHTML = "HAS GANADO";

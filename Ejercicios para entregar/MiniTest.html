@@ -8,12 +8,14 @@
     <script>
         var aciertos = 0;
         var fallos = 0;
+        //Función que se va a encargar de calcular el numero de fallos y de aciertos 
         var resultado = function(){
+
+            //Comprobación de la pregunta 1
             var res1 = document.getElementById("p11");
             var res12 = document.getElementById("p12");
             var res13 = document.getElementById("p13");
             var res14 = document.getElementById("p14");
-
             if(res1.checked){
                 aciertos += 0.5;
             }
@@ -26,13 +28,12 @@
             if(res14.checked){
                 fallos += 0.5;
             }
-            console.log(aciertos);
-            console.log(fallos);
+           
+            //Comprobación de la pregunta 2
             var res2 = document.getElementById("p21");
             var res22 = document.getElementById("p22");
             var res23 = document.getElementById("p23");
             var res24 = document.getElementById("p24");
-
             if(res2.checked){
                 fallos += 1;
             }
@@ -45,11 +46,10 @@
             if(res24.checked){
                 fallos += 1;
             }
-            console.log(aciertos);
-            console.log(fallos);
+
+           //Comprobación de la pregunta 3
             var select= document.getElementById('pregunta3');
             var selected_option = select.options[select.selectedIndex].value;
-            console.log(selected_option)
             if(selected_option == "return"){
                 aciertos += 1;
            
@@ -59,9 +59,8 @@
             }else{
                 fallos += 1;
             }
-            console.log(aciertos);
-            console.log(fallos);
 
+            //Comprobación de la pregunta 4
             var res4 = document.getElementById("p41").value;
             if(res4 == "+"){
                 aciertos += 1;
@@ -69,26 +68,66 @@
             else{
                 fallos += 1;
             }
+
+            //Los fallos restan la mitad solamente para evitar que sea muy dificil 
+            aciertos = aciertos - fallos/2;
+            if(aciertos != 4){
+                document.getElementById("corregir").value = "REINTENTAR";
+            }
+            else{
+                document.getElementById("corregir").value = "CORREGIR";
+                document.getElementById("corregir").disabled = true;
+                document.getElementById("recarga").innerHTML = `<input type="button" value="REINTENTAR" onclick="reiniciar()" />`;
+            }
+
+            document.getElementById("nota").innerHTML = "Tu nota es un " + ((aciertos*100)/4)/10;
+            aciertos = 0;
+            fallos = 0;
         }   
+
+        var reiniciar = function(){
+                location.reload(true);
+            }
     </script>
+
+    <style>
+        h1{
+            padding: 0 35%;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 4rem;
+        }
+        body{
+            background-color: grey;
+        }
+        #nota{
+            padding: 0 35%;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 4rem;
+        }
+        form{
+            padding: 0 35%;
+        }
+        
+    
+    </style>
 </head>
 <body>
     <h1>Test JavaScript</h1>
     <div id = "test">
     <form style="font:normal 16px sans-serif">
-        <p>La llamada al código Javascript puede colocarse en: </p>
+        <p>1) La llamada al código Javascript puede colocarse en: </p>
         <input type="checkbox" name="pregunta1" id="p11"> La sección Body de la página <br>
         <input type="checkbox" name="pregunta1" id="p12"> La sección Head de la página <br>
         <input type="checkbox" name="pregunta1" id="p13"> Ninguna es correcta <br>
         <input type="checkbox" name="pregunta1" id="p14"> Antes de la etiqueta HTML <br>
          
-        <p>¿En qué lugar se ejecuta generalmente el código JavaScript?</p>
+        <p>2) ¿En qué lugar se ejecuta generalmente el código JavaScript?</p>
         <input type="radio" name="pregunta2" id="p21"> Servidor <br>
         <input type="radio" name="pregunta2" id="p22"> Cliente (en el propio navegador de internet) <br>
         <input type="radio" name="pregunta2" id="p23"> En tu casa <br>
         <input type="radio" name="pregunta2" id="p24"> Todas las respuestas son correctas <br>
          
-        <p>¿Cuál es la instrucción usada para devolver un valor en una función de JavaScript?</p>
+        <p>3) ¿Cuál es la instrucción usada para devolver un valor en una función de JavaScript?</p>
         <select id="pregunta3">
                 <option value="1" selected>---Opciones---</option>
                 <option value="send">Send</option>
@@ -97,15 +136,16 @@
                 <option value="end">End</option>
               </select>
          
-        <p>Escribe el caracter para concatenar cadenas en Javascript:</p>
+        <p>4) Escribe el caracter para concatenar cadenas en Javascript:</p>
         <input type="text" name="pregunta4" id="p41" maxlength="1">
 
     <div class="botones">
-        <p><input type="button" value="CORREGIR" onclick="resultado()"/></p>
-        <p><input type="button" value="REINTENTAR" onclick="resultado()"/></p>
+        <p><input id = "corregir" type="button" value="CORREGIR" onclick="resultado()"/></p>
+        <p id = "recarga"></p>
     </div>
     </form>
     </div>
+    <div id = "nota"></div>
     
 </body>
 </html>
