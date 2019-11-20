@@ -28,6 +28,14 @@
         grid-row-start: 3;
         grid-row: 4;
     }
+    .resultado{
+        grid-column-start: 3;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        grid-row: 3;
+        font-size: 2rem;
+        color: red;
+    }
     
 
     @keyframes slidebg {
@@ -48,7 +56,7 @@
     }
     #iniciar:after {
         content:attr(alt);
-        width:5rem;
+        width: 5rem;
         height: 1.5rem;
         background-color:#191919;
         display:flex;
@@ -98,6 +106,9 @@
         <div class="botones">
         <button onclick="iniciar()" id="iniciar" alt = " Iniciar "></button>
         <button onclick="parar()" id="parar" alt =" Parar " disabled></button>
+        </div>
+        <div class="resultado" id = "resultado">
+
         </div>
     </div>
  
@@ -203,7 +214,7 @@
                 document.getElementById("iniciar").disabled=false;
  
                 // obtenemos la posicion exacta de donde se ha parado dentro de la imagen
-                posicion=posicionFinal-(450*parseInt(posicionFinal/450));
+                 var posicion1=posicionFinal-(450*parseInt(posicionFinal/450));
                 
             }
             if(contador2>=posicionFinal1)
@@ -215,7 +226,7 @@
                 document.getElementById("iniciar").disabled=false;
  
                 // obtenemos la posicion exacta de donde se ha parado dentro de la imagen
-                posicion=posicionFinal-(450*parseInt(posicionFinal/450));
+                 var posicion2=posicionFinal1-(450*parseInt(posicionFinal/450));
                 
             }
             if(contador3>=posicionFinal2)
@@ -227,10 +238,14 @@
                 document.getElementById("iniciar").disabled=false;
  
                 //obtenemos la posicion exacta de donde se ha parado dentro de la imagen
-                posicion=posicionFinal-(450*parseInt(posicionFinal/450));
+                 var posicion3=posicionFinal2-(450*parseInt(posicionFinal/450));
                 clearInterval(interval2);
             }
-            
+            if(posicion1 == posicion2 && posicion1 == posicion3){
+                document.getElementById("resultado").innerHTML = "FELICIDADES";
+            }else{
+                document.getElementById("resultado").innerHTML = "INTENTALO DE NUEVO";
+            }
         }, 1);
     }
     </script>
