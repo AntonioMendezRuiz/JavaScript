@@ -206,7 +206,7 @@
                 posicion=posicionFinal-(450*parseInt(posicionFinal/450));
                 
             }
-            if(contador2>=posicionFinal)
+            if(contador2>=posicionFinal1)
             {
                 
                 document.getElementById("slot").style["background-position"]="0% "+(posicionFinal)+"px";
@@ -218,7 +218,7 @@
                 posicion=posicionFinal-(450*parseInt(posicionFinal/450));
                 
             }
-            if(contador3>=posicionFinal)
+            if(contador3>=posicionFinal2)
             {
                 
                 document.getElementById("slot").style["background-position"]="0% "+(posicionFinal)+"px";
@@ -226,7 +226,7 @@
                 document.getElementById("slot2").style["background-position"]="0% "+(posicionFinal2)+"px";
                 document.getElementById("iniciar").disabled=false;
  
-                // obtenemos la posicion exacta de donde se ha parado dentro de la imagen
+                //obtenemos la posicion exacta de donde se ha parado dentro de la imagen
                 posicion=posicionFinal-(450*parseInt(posicionFinal/450));
                 clearInterval(interval2);
             }
