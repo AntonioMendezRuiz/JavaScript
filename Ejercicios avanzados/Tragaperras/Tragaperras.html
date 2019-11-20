@@ -166,9 +166,18 @@
                 clearInterval(interval1);
                 finalizarMovimiento();
             }
-            contador1+=velocidad;
-            contador2+=velocidad;
-            contador3+=velocidad;
+            contador1+=velocidad * .7;
+            if (contador1 >= 375){
+                contador1 = 0;
+            }
+            contador2+=velocidad * 1.2;
+            if (contador2 >= 375){
+                contador2 = 0;
+            }
+            contador3+=velocidad*0.9;
+            if (contador3 >= 375){
+                contador3 = 0;
+            }
         }, 50);
     }
  
@@ -207,46 +216,46 @@
             document.getElementById("slot2").style["background-position"]="0% "+contador3 + "px";
             if(contador1>=posicionFinal)
             {
-                
                 document.getElementById("slot").style["background-position"]="0% "+(posicionFinal)+"px";
-                document.getElementById("slot1").style["background-position"]="0% "+(posicionFinal1)+"px";
-                document.getElementById("slot2").style["background-position"]="0% "+(posicionFinal2)+"px";
-                document.getElementById("iniciar").disabled=false;
- 
+    
                 // obtenemos la posicion exacta de donde se ha parado dentro de la imagen
                  var posicion1=posicionFinal-(450*parseInt(posicionFinal/450));
+                 console.log(posicion1)
                 
             }
             if(contador2>=posicionFinal1)
             {
-                
-                document.getElementById("slot").style["background-position"]="0% "+(posicionFinal)+"px";
                 document.getElementById("slot1").style["background-position"]="0% "+(posicionFinal1)+"px";
-                document.getElementById("slot2").style["background-position"]="0% "+(posicionFinal2)+"px";
-                document.getElementById("iniciar").disabled=false;
- 
+               
                 // obtenemos la posicion exacta de donde se ha parado dentro de la imagen
                  var posicion2=posicionFinal1-(450*parseInt(posicionFinal/450));
-                
+                 console.log(posicion2)
             }
             if(contador3>=posicionFinal2)
             {
-                
-                document.getElementById("slot").style["background-position"]="0% "+(posicionFinal)+"px";
-                document.getElementById("slot1").style["background-position"]="0% "+(posicionFinal1)+"px";
                 document.getElementById("slot2").style["background-position"]="0% "+(posicionFinal2)+"px";
                 document.getElementById("iniciar").disabled=false;
  
                 //obtenemos la posicion exacta de donde se ha parado dentro de la imagen
                  var posicion3=posicionFinal2-(450*parseInt(posicionFinal/450));
+                 console.log(posicion3)
                 clearInterval(interval2);
             }
-            if(posicion1 == posicion2 && posicion1 == posicion3){
+            
+        }, 1);
+        if(posicionFinal == posicionFinal1 && posicionFinal == posicionFinal2){
                 document.getElementById("resultado").innerHTML = "FELICIDADES";
+            }else if ((posicionFinal - 75) == posicionFinal1 && posicionFinal1 == (posicionFinal2 + 75)){
+                document.getElementById("resultado").innerHTML = "DIAGONAL";
+            }else if ((posicionFinal + 75) == posicionFinal1 && posicionFinal1 == (posicionFinal2 - 75)){
+                document.getElementById("resultado").innerHTML = "DIAGONAL";
+            }else if ((posicionFinal + 75) == (posicionFinal1 + 75) && (posicionFinal1 + 75) == (posicionFinal2 + 75)){
+                document.getElementById("resultado").innerHTML = "PREMIO";
+            }else if ((posicionFinal - 75) == (posicionFinal1 - 75) && (posicionFinal1 - 75) == (posicionFinal2 - 75)){
+                document.getElementById("resultado").innerHTML = "PREMIO";
             }else{
                 document.getElementById("resultado").innerHTML = "INTENTALO DE NUEVO";
             }
-        }, 1);
     }
     </script>
 </body>
