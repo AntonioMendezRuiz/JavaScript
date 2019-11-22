@@ -1,0 +1,108 @@
+[
+    {
+        "nombre": "Antonio",
+        "fechaNacimiento": "1991-07-26",
+        "notas": [
+            {
+                "modulo": "FOL",
+                "convalida": true
+            },
+            {
+                "modulo": "SI",
+                "convalida": false,
+                "nota": 7
+            },
+            {
+                "modulo": "PRG",
+                "convalida": false,
+                "nota": 6
+            },
+            {
+                "modulo": "ENT",
+                "convalida": false,
+                "nota": 5
+            },
+            {
+                "modulo": "LGM",
+                "convalida": false,
+                "nota": 8
+            },
+            {
+                "modulo": "BBDD",
+                "convalida": false,
+                "nota": 6
+            }
+        ]
+    },
+    {
+        "nombre": "Juan",
+        "fechaNacimiento": "1991-09-12",
+        "notas": [
+            {
+                "modulo": "FOL",
+                "convalida": false,
+                "nota": 9
+            },
+            {
+                "modulo": "SI",
+                "convalida": false,
+                "nota": 4
+            },
+            {
+                "modulo": "PRG",
+                "convalida": false,
+                "nota": 2
+            },
+            {
+                "modulo": "ENT",
+                "convalida": true
+            },
+            {
+                "modulo": "LGM",
+                "convalida": false,
+                "nota": 5
+            },
+            {
+                "modulo": "BBDD",
+                "convalida": false,
+                "nota": 6
+            }
+        ]
+    },
+    {
+        "nombre": "Pedro",
+        "fechaNacimiento": "1993-02-09",
+        "notas": [
+            {
+                "modulo": "FOL",
+                "convalida": false,
+                "nota": 3
+            },
+            {
+                "modulo": "SI",
+                "convalida": false,
+                "nota": 7
+            },
+            {
+                "modulo": "PRG",
+                "convalida": false,
+                "nota": 10
+            },
+            {
+                "modulo": "ENT",
+                "convalida": false,
+                "nota": 10
+            },
+            {
+                "modulo": "LGM",
+                "convalida": false,
+                "nota": 8
+            },
+            {
+                "modulo": "BBDD",
+                "convalida": false,
+                "nota": 3
+            }
+        ]
+    }
+]
