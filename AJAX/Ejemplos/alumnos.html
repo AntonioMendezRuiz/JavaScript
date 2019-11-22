@@ -14,10 +14,11 @@
                     let alumnos = JSON.parse(this.responseText);
                     tratar(alumnos);
                     ordenar(alumnos);
+                    presentar(alumnos);
                     console.log(alumnos)
                 }
             }
-            xhr.open("GET", "alumnos.json", true);
+            xhr.open("GET", "alumnos.json?nocache=" + Math.random(), true);
             xhr.send();
         });
         var tratar = function(alumnos){
@@ -46,10 +47,24 @@
                 }
             });
         }
+
+        var presentar = function(alumnos){
+            console.log(alumnos)
+            for(let i  = 0; i < alumnos.length; i++){
+                document.getElementById("tabla").innerHTML += 
+                `<tr><td>${alumnos[i].nombre}</td>
+                     <td>${alumnos[i].fechaNacimiento.getDay()}</td>
+                     <td>${alumnos[i].notaMedia}</td>
+                </tr>`;
+            }
+        }
     
     </script>
 </head>
 <body>
-    <div id ="alumnos"></div>
+    <h1>Listado alumnos</h1>
+    <table id = "tabla">
+        <tr><td>Nombre</td> <td>Fecha de Nacimiento</td> <td>Nota media</td></tr>
+    </table>
 </body>
 </html>
