@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mini Test JavaScript</title>
     <script>
+        //declaramos variables para contar fallos y aciertos
         var aciertos = 0;
         var fallos = 0;
         //Función que se va a encargar de calcular el numero de fallos y de aciertos 
@@ -18,16 +19,35 @@
             var res14 = document.getElementById("p14");
             if(res1.checked){
                 aciertos += 0.5;
+                document.getElementById("que11").style.color ="green";
             }
+            if(!res1.checked){
+                    document.getElementById("que1").style.color ="black";
+                }
             if(res12.checked){
                 aciertos += 0.5;
+                document.getElementById("que12").style.color ="green";
             }
+            if(res1.checked && res12.checked){
+                document.getElementById("que1").style.color ="green";
+            }
+            if(!res12.checked){
+                    document.getElementById("que12").style.color ="black";
+                }
             if(res13.checked){
                 fallos += 0.5;
+                document.getElementById("que13").style.color ="red";
             }
+            if(!res13.checked){
+                    document.getElementById("que13").style.color ="black";
+                }
             if(res14.checked){
                 fallos += 0.5;
+                document.getElementById("que14").style.color ="red";
             }
+            if(!res14.checked){
+                    document.getElementById("que14").style.color ="black";
+                }
            
             //Comprobación de la pregunta 2
             var res2 = document.getElementById("p21");
@@ -36,15 +56,19 @@
             var res24 = document.getElementById("p24");
             if(res2.checked){
                 fallos += 1;
+                document.getElementById("que2").style.color ="red";
             }
             if(res22.checked){
                 aciertos += 1;
+                document.getElementById("que2").style.color ="green";
             }
             if(res23.checked){
                 fallos += 1;
+                document.getElementById("que2").style.color ="red";
             }
             if(res24.checked){
                 fallos += 1;
+                document.getElementById("que2").style.color ="red";
             }
 
            //Comprobación de la pregunta 3
@@ -52,25 +76,33 @@
             var selected_option = select.options[select.selectedIndex].value;
             if(selected_option == "return"){
                 aciertos += 1;
+                document.getElementById("que3").style.color ="green";
            
             }else if(selected_option == "1"){
                 aciertos = aciertos;
                 fallos = fallos;
             }else{
                 fallos += 1;
+                document.getElementById("que3").style.color ="red";
             }
 
             //Comprobación de la pregunta 4
             var res4 = document.getElementById("p41").value;
             if(res4 == "+"){
                 aciertos += 1;
+                document.getElementById("que4").style.color ="green";
             } 
-            else{
+            else if(res4 == ""){
+                aciertos = aciertos;
+            }else {
                 fallos += 1;
+                document.getElementById("que4").style.color ="red";
             }
 
             //Los fallos restan la mitad solamente para evitar que sea muy dificil 
             aciertos = aciertos - fallos/2;
+
+            //controlamos los botones de correger e intentar 
             if(aciertos != 4){
                 document.getElementById("corregir").value = "REINTENTAR";
             }
@@ -79,8 +111,14 @@
                 document.getElementById("corregir").disabled = true;
                 document.getElementById("recarga").innerHTML = `<input type="button" value="REINTENTAR" onclick="reiniciar()" />`;
             }
-
-            document.getElementById("nota").innerHTML = "Tu nota es un " + ((aciertos*100)/4)/10;
+            //calculamos la nota en base 10. La nota no podrá ser negativa, es decir, mínimo 0
+            var nota;
+            if(((aciertos*100)/4)/10 < 0){
+                nota = 0;
+            }else{
+                nota = ((aciertos*100)/4)/10;
+            }
+            document.getElementById("nota").innerHTML = "Tu nota es un " + nota;
             aciertos = 0;
             fallos = 0;
         }   
@@ -119,19 +157,19 @@
     <h1>Test JavaScript</h1>
     <div id = "test">
     <form style="font:normal 16px sans-serif">
-        <p>1) La llamada al código Javascript puede colocarse en: </p>
-        <input type="checkbox" name="pregunta1" id="p11"> La sección Body de la página <br>
-        <input type="checkbox" name="pregunta1" id="p12"> La sección Head de la página <br>
-        <input type="checkbox" name="pregunta1" id="p13"> Ninguna es correcta <br>
-        <input type="checkbox" name="pregunta1" id="p14"> Antes de la etiqueta HTML <br>
+        <p id = "que1">1) La llamada al código Javascript puede colocarse en: </p>
+        <input type="checkbox" name="pregunta1" id="p11"> <span id = "que11">La sección Body de la página</span><br>
+        <input type="checkbox" name="pregunta1" id="p12"> <span id = "que12">La sección Head de la página</span><br>
+        <input type="checkbox" name="pregunta1" id="p13"> <span id = "que13">Ninguna es correcta</span><br>
+        <input type="checkbox" name="pregunta1" id="p14"> <span id = "que14">Antes de la etiqueta HTML</span><br>
          
-        <p>2) ¿En qué lugar se ejecuta generalmente el código JavaScript?</p>
+        <p id = "que2">2) ¿En qué lugar se ejecuta generalmente el código JavaScript?</p>
         <input type="radio" name="pregunta2" id="p21"> Servidor <br>
         <input type="radio" name="pregunta2" id="p22"> Cliente (en el propio navegador de internet) <br>
         <input type="radio" name="pregunta2" id="p23"> En tu casa <br>
         <input type="radio" name="pregunta2" id="p24"> Todas las respuestas son correctas <br>
          
-        <p>3) ¿Cuál es la instrucción usada para devolver un valor en una función de JavaScript?</p>
+        <p id = "que3">3) ¿Cuál es la instrucción usada para devolver un valor en una función de JavaScript?</p>
         <select id="pregunta3">
                 <option value="1" selected>---Opciones---</option>
                 <option value="send">Send</option>
@@ -140,7 +178,7 @@
                 <option value="end">End</option>
               </select>
          
-        <p>4) Escribe el caracter para concatenar cadenas en Javascript:</p>
+        <p id = "que4">4) Escribe el caracter para concatenar cadenas en Javascript:</p>
         <input type="text" name="pregunta4" id="p41" maxlength="1">
 
     <div class="botones">
