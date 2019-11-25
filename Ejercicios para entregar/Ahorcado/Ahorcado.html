@@ -9,7 +9,7 @@
     body{
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        grid-template-rows: repeat(7, 1fr);
+        grid-template-rows: repeat(8, 1fr);
         font-family: Verdana, Geneva, Tahoma, sans-serif; 
     }
 
@@ -78,11 +78,28 @@
     }
     #final{
         grid-column: 1/8;
-        grid-row: 5/8;
+        grid-row: 5/7;
         text-align: center;
         align-items: center;
         font-size: 80px;
         color:red;
+    }
+    #nombre{
+        grid-column: 4/5;
+        grid-row: 7/8;
+        text-align: center;
+        align-items: center;
+        justify-self: center;
+        height: 2rem;
+        width: 10rem;
+    }
+    #registrar{
+        grid-column: 4/5;
+        grid-row: 8/9;
+        text-align: center;
+        justify-self: center;
+        height: 2rem;
+        width: 6rem;
     }
     
     </style>
@@ -119,6 +136,8 @@
         <button  class ="bot" onclick = "comprobarLetra(this)">Z</button>
     </div>
     <button id = "reiniciar" onclick = "reiniciar()" disabled>Volver a jugar</button>
+    <input type="text" id="nombre" placeholder = "nombre" hidden>
+    <button  id = "registrar" onclick="registrar()" hidden> Registrar </button>
     
     <h2 class = "int">Intentos</h2>
     <div id="intentos"></div>
@@ -201,6 +220,8 @@
                     document.getElementById("final").innerHTML = "HAS GANADO";
                     document.getElementById("reiniciar").disabled = false;
                     var bot = document.querySelectorAll(".bot");
+                    document.getElementById("nombre").hidden = false;
+                    document.getElementById("registrar").hidden = false;
                     bot.forEach(element => {
                         element.disabled = true;
                     });
@@ -209,6 +230,8 @@
                     document.getElementById("final").innerHTML = "HAS PERDIDO";
                     document.getElementById("reiniciar").disabled = false;
                     var bot = document.querySelectorAll(".bot");
+                    document.getElementById("nombre").hidden = false;
+                    document.getElementById("registrar").hidden = false;
                     bot.forEach(element => {
                         element.disabled = true;
                     });
@@ -218,6 +241,15 @@
             var reiniciar = function(){
                 location.reload(true);
             }
+
+            var registrar = function () {
+                var respuesta = document.getElementById("nombre").value;
+                console.log(respuesta);
+                let xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "puntuacion.php?p=" + respuesta +"&n="+ numIntentos, true);
+                xhttp.send();
+            }
+            
             prepararJuego(); 
         </script>
 </body>
