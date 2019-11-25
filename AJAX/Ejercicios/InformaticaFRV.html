@@ -10,22 +10,47 @@
 <script>
    
     window.onload = function () {
+
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             console.log(this.readyState);
             if (this.readyState == 4 && this.status == 200) {
-                let instituto =  JSON.parse(this.responseText);
-                document.getElementById("instituto").innerHTML = instituto.nombre + ", " + instituto.codigo;
+                tabla(JSON.parse(this.responseText));
             }
         }
         xhttp.open("GET", "InformaticaFRV.json", true);
         xhttp.send();
+        var tabla = (instituto)=>{
+            let total = 0;
+            for(let i  = 0; i < instituto.grupos.length; i++){
+                total += instituto.grupos[i].alumnos;
+            }
+            document.getElementById("instituto").innerHTML = instituto.nombre + ", " + instituto.codigo +"<br>";
+            document.getElementById("total").innerHTML = "Número de alumnos totales: " + total;
+            let gruposJuana = 0;
+            for(let i  = 0; i < instituto.grupos.length; i++){
+                document.getElementById("tabla").innerHTML += 
+                `<tr><td>${instituto.grupos[i].grupo}</td><td>${instituto.grupos[i].profesores}</td></tr><br>`;
+                
+                if(instituto.grupos[i].profesores.indexOf("Juana") > -1){
+                    gruposJuana++;
+                }
+            }
+
+            document.getElementById("clases").innerHTML = "Número de grupos a los que da clase Juana: " + gruposJuana;
+        }
     }
 
 </script>
 
 <body>
+    <h1>Informática Romero Vargas</h1>
     <div id = "instituto"></div>
+    <div id = "total"></div>
+    <table id = "tabla">
+        <tr><th>Grupo</th><th>Profesores</th></tr>
+    </table>
+    <div id = "clases"></div>
 </body>
 
 </html>

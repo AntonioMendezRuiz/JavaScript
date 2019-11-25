@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejemplo POST</title>
+    <script>
+        //IMPORTATE: no llamar igual al ID de los elementos y a las funciones
+        let Enviar = () => {
+            var xhr = new XMLHttpRequest();
+            xhr.upload.addEventListener("progress", (evento) =>{
+                document.getElementById("porcentaje").innerHTML = Math.round(evento.loaded /evento.total)*100 + "%";
+                document.getElementById("porcentaje").style.width = (evento.loaded /evento.total)*100 + "%";
+            });
+            xhr.addEventListener("load", () => {
+                console.log(xhr.responseText);
+            });
+            xhr.open("POST", "ejemploPost.php");
+            //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); esta cabecera no 
+            //hace falta
+            let formulario = document.getElementById("form")
+            xhr.send(new FormData(formulario));
+            
+        }
+    </script>
+</head>
+
+<body>
+    <form id = "form" action="" onsubmit= "return false;">
+        Nombre <input type="text" name ="nombre" id="nombre">
+        Contraseña <input type="password" name="password" id="password">
+        Foto <input type="file" name="foto" id="foto">
+        <button id="enviar" onclick="Enviar()">Enviar</button>
+    </form>
+    <div id = "porcentaje" style="background-color: red;"></span>
+</body>
+
+</html>
