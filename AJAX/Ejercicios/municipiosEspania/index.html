@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Municipios de España</title>
+    <script>
+        window.onload = function () {
+            //AJAX para cargar los datos en el select
+            var x = new XMLHttpRequest();
+            x.onreadystatechange = function () {
+                if (x.readyState == 4 && x.status == 200) {
+                    cargaAutonomias(JSON.parse(x.responseText));
+                }
+            }
+            x.open("GET", "http://172.30.12.70/PHP/municipiosEspania/autonomias.php", true)
+            x.send();
+
+        }
+        function cargaAutonomias(autonomias) {
+            for (var i = 0; i < autonomias.length; i++) {
+                document.getElementById("autonomia").innerHTML += `<option value = "${autonomias[i].id}">${autonomias[i].autonomia}</option>`
+            }
+        }
+        function provincias(autonomiaId) {
+            if (autonomiaId != -1) {
+                let x = new XMLHttpRequest();
+                x.onreadystatechange = function () {
+                    if (x.readyState == 4 && x.status == 200) {
+                        cargaProvincias(JSON.parse(x.responseText));
+                    }
+                }
+                x.open("GET", "http://172.30.12.70/PHP/municipiosEspania/provincias.php?autonomia=" + autonomiaId, true)
+                x.send();
+            }
+        }
+        function cargaProvincias(provincias){
+            document.getElementById("provincia").innerHTML = `<option value="-1">-- Elegir --</option>`;
+            for (var i = 0; i < provincias.length; i++) {
+                document.getElementById("provincia").innerHTML += `<option value = "${provincias[i].id}">${provincias[i].provincia}</option>`
+            }
+        }
+
+        function municipios(provinciaId) {
+            if (provinciaId != -1) {
+                let x = new XMLHttpRequest();
+                x.onreadystatechange = function () {
+                    if (x.readyState == 4 && x.status == 200) {
+                        cargaMunicipios(JSON.parse(x.responseText));
+                    }
+                }
+                x.open("GET", "http://172.30.12.70/PHP/municipiosEspania/municipios.php?provincia=" + provinciaId, true)
+                x.send();
+            }
+        }
+        function cargaMunicipios(municipios){
+            document.getElementById("municipio").innerHTML = `<option value="-1">-- Elegir --</option>`;
+            for (var i = 0; i < municipios.length; i++) {
+                document.getElementById("municipio").innerHTML += `<option value = "${municipios[i].id}">${municipios[i].municipio}</option>`
+            }
+        }
+
+        function tratar(municipio){
+            let ciudades = document.getElementById("municipio");
+            var nombre = ciudades.options[ciudades.selectedIndex].innerHTML;
+            window.open("https://es.wikipedia.org/wiki/" + nombre);
+        }
+        
+    </script>
+</head>
+
+<body>
+    <h1>Municipios de España</h1>
+    Autonomia <select id="autonomia" onchange="provincias(this.value)">
+        <option value="-1">-- Elegir --</option>
+    </select>
+    Provincia <select id="provincia" onchange="municipios(this.value)">
+            <option value="-1">-- Elegir --</option>
+    </select>
+    Municipio <select id="municipio" onchange="tratar(this)">
+            <option value="-1">-- Elegir --</option>
+    </select>
+</body>
+
+</html>
