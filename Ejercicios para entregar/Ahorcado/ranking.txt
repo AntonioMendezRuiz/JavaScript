@@ -2,3 +2,5 @@ Nombre      Intentos
 
 werwer     0
 Antonio     0
+Pedro     0
+Antonio     7
