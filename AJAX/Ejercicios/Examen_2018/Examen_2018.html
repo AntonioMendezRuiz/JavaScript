@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Examen 2018 JavaScript</title>
+    <script>
+        //Añadimos al prototipo de la fecha presentarla con los meses en castellano
+        Date.prototype.presentaCastellano = function () {
+            let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            return this.getDate() + " de " + meses[this.getMonth()] + " de " + this.getFullYear();
+        }
+        const fechaProgramacion = "2018-03-07";
+        window.addEventListener("load", function () {
+            //prensentamos la fecha en el h1
+            document.getElementById("fechaTexto").innerHTML = new Date(fechaProgramacion).presentaCastellano();
+            //Solicitamos por Ajax el recurso canales.php
+            var x = new XMLHttpRequest();
+            x.addEventListener("load", function () {
+                let resultado = JSON.parse(x.responseText);
+                if (resultado.estado == 404) {
+                    alert("No se pudo cargar la página");
+                }
+                else {
+                    mostrar(resultado.data);
+                }
+                console.log(resultado)
+            })
+            x.open("GET", "http://172.30.12.70/PHP/Examen_2018/canales.php", true);
+            x.send();
+        })
+        //Mostramos los logos
+        var mostrar = (canales) => {
+            console.log(canales);
+            canales.forEach((elemento) => {
+                document.getElementById("logos").innerHTML +=
+                    `<img src = "logos/${elemento.url}" onclick = "cargaProgramas(${elemento.id},'${elemento.nombre}')"/>`;
+            });
+        }
+        var cargaProgramas = (idCanal, nombreCanal) => {
+            console.log(idCanal + " " + nombreCanal)
+            let x = new XMLHttpRequest();
+            x.onreadystatechange = () => {
+                if (x.readyState == 4 && x.status == 200) {
+                    if (x.responseText == "error") {
+                        alert("No se puede acceder")
+                    } else {
+                        let programas = JSON.parse(x.responseText);
+                        presentar(programas, nombreCanal);
+                    }
+                }
+            }
+            x.open("POST", "http://172.30.12.70/PHP/Examen_2018/programas.php", true);
+            x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            x.send("id=" + idCanal + "&fecha=" + fechaProgramacion);
+        }
+
+        var presentar = (programas, nombreCanal) => {
+            console.log(programas)
+            //Ordenamos por la hora de emisión
+            programas.sort(function (a, b) {
+                if (a.hora < b.hora) return -1;
+                if (a.hora > b.hora) return 1;
+                return 0;
+            });
+            let capaProgramas = document.getElementById("programas");
+            let tituloProgramas = document.getElementById("titulo");
+            tituloProgramas.innerHTML = "<h2>" + nombreCanal + "</h2>";
+            //capaProgramas.innerHTML += "<table style = border : 1px solid black><tr><th>Hora</th><th>Programas</th></tr>";
+            programas.forEach((elemento) => {
+                capaProgramas.innerHTML += `<tr><td>${elemento.hora}</td><td onclick = "resalta(this)">${elemento.nombre}<br><span style = 'display:none'>${elemento.descripcion}</span></td></tr>`;
+            });
+            //capaProgramas.innerHTML += "</table>";
+
+        }
+        let resalta = (td) => {
+            td.childNodes[2].style.display = "block";
+            td.style.color = "red";
+        }
+
+
+    </script>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Programación de TV del <span id="fechaTexto"></span></h1>
+    <p>Pulsa sobre el canal</p>
+    <div id="logos"></div>
+    <div id="titulo"></div>
+    <table id="programas" style='border:2'>
+        <tr>
+            <th>Hora</th>
+            <th>Programas</th>
+        </tr>
+    </table>
+
+</body>
+
+</html>

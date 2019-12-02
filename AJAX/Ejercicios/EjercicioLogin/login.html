@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login de usuario</title>
+    <script>
+        var comprobar = () =>{
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function(){
+                if(xhr.responseText == "S"){
+                    seguimos();
+                }
+                else{
+                    alert("Acceso denegado")
+                }
+            }
+            xhr.open("POST", "http://172.30.12.70/PHP/compruebaUsuario.php", true)
+            x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            let usuario = document.getElementById("usuario").value;
+            let password = document.getElementById("pass").value;
+            x.send("usuario=" + usuario + "&password=" + password);
+        }
+    </script>
+</head>
+<body>
+    <h1>Login</h1>
+    Usuario <input type="text" id="usuario">
+    Contraseña <input type="password" id="pass"><br>
+    <button onclick="comprobar()"> Entrar </button>
+</body>
+</html>
