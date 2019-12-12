@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>adivinanzas</title>
+    <script>
+      function getRandom(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      var registro = [];
+      var mostrarAdivinanza = () => {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (xhttp.readyState == 4 && xhttp.status == 200) {
+            let contenido = JSON.parse(this.responseText);
+            console.log(contenido.length)
+            let existe = true;
+            while(existe){
+                let numAleatorio = Math.round(getRandom(0, contenido.length - 1));
+                if(!registro.includes(contenido[numAleatorio].pista)){
+                    document.getElementById("muestra").innerHTML = contenido[numAleatorio].versos;
+                    document.getElementById("muestra").setAttribute("class", contenido[numAleatorio].pista)
+                    registro.push(contenido[numAleatorio].pista);
+                    existe = false;
+                }
+                else{
+                    existe = true;
+                }
+                console.log(registro.length);
+                
+            }
+            if(registro.length == contenido.length){
+                alert("Se acabaron las adivinanzas");
+                document.getElementById("adivina").style.display = "none";
+            }
+            document.getElementById("respuesta").innerHTML = "";
+            document.getElementById("ayuda").innerHTML = "";
+          }
+        }
+        xhttp.open("GET", "adivinanzas.json", true);
+        xhttp.send();
+
+      }
+
+      var mostrarPista = () => {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (xhttp.readyState == 4 && xhttp.status == 200) {
+            console.log(document.getElementById("muestra").innerHTML);
+            let contenido = JSON.parse(this.responseText);
+            let existe = true;
+                while(existe){
+                    let numAleatorio = Math.round(getRandom(0, contenido.length - 1));
+                    console.log(document.getElementById("muestra").innerHTML);
+                    console.log(contenido[numAleatorio].versos);
+                    if(document.getElementById("muestra").getAttribute("class") == contenido[numAleatorio].pista){
+                        document.getElementById("ayuda").innerHTML = contenido[numAleatorio].pista;
+                        existe = false;
+                    }
+                    else{
+                        existe = true;
+                    }
+                }
+            }
+        }
+        xhttp.open("GET", "adivinanzas.json", true);
+        xhttp.send();
+        
+      }
+
+      var verSolucion = (pista) => {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var contenido = JSON.parse(this.responseText);
+            let existe = true;
+                while(existe){
+                    let numAleatorio = Math.round(getRandom(0, contenido.length - 1));
+                    console.log(document.getElementById("muestra").innerHTML);
+                    console.log(contenido[numAleatorio].versos);
+                    if(document.getElementById("muestra").getAttribute("class") == contenido[numAleatorio].pista){
+                        document.getElementById("respuesta").innerHTML = contenido[numAleatorio].solucion;
+                        existe = false;
+                    }
+                    else{
+                        existe = true;
+                    }
+                    console.log(registro.length);
+                }
+            }
+        }
+        xhttp.open("GET", "adivinanzas.json", true);
+        xhttp.send();
+      }
+    </script>
+
+    <style>
+      .container {
+        text-align: center;
+      }
+      #ayuda{
+          text-align: center;
+          color: red;
+          font-size: 2rem;
+      }
+      #respuesta{
+          text-align: center;
+          color: green;
+          font-size: 4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button id="adivina" onclick="mostrarAdivinanza()">Nueva adivinanza</button><br/><br/>
+      <textarea id="muestra" cols="40" rows="15"></textarea><br/>
+      <button id="pista" onclick="mostrarPista()">Pista</button>
+      <button id="solucion" onclick="verSolucion()">Ver solución</button>
+    </div>
+    <div id="ayuda"></div>
+    <div id="respuesta"></div>
+  </body>
+</html>
