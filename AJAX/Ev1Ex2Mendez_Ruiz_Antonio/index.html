@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Montiel Música S.L.</title>
+    <script>
+        var consigueFecha = () =>{
+            var fecha = new Date();
+            var numDia = fecha.getDay()
+            switch(numDia){
+                case 0:
+                    return "D";
+                break;
+                case 1:
+                    return "L";
+                break; 
+                case 2:
+                    return "M";
+                break;
+                case 3:
+                    return "X";
+                break;
+                case 4:
+                    return "J";
+                break;
+                case 5:
+                    return "V";
+                break; 
+                case 6:
+                    return "S";
+                break;    
+            }
+        }
+        var fechaActual = () =>{
+            var fecha = new Date();
+            return fecha.getFullYear()+"-"+fecha.getMonth()+"-"+fecha.getDay();
+        }
+        var login = () => {
+            let xhttp = new XMLHttpRequest();
+            var usuario = document.getElementById("user").value;
+            var password = document.getElementById("pass").value;
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    if(xhttp.responseText.length > 2){
+                        var profesores = JSON.parse(xhttp.responseText);
+                        console.log(profesores[0].codigo)
+                        mostrarHorario(profesores[0].codigo, consigueFecha());
+                    }
+                    if(xhttp.responseText.length == 2){
+                        alert("Usuario o contraseña incorrectos");
+                    }
+                }
+            }
+            xhttp.open("POST", "servidor/login.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("usuario=" + usuario + "&password=" + password);
+        }
+
+        var mostrarHorario = (codPRo, dia) =>{
+            let xhttp = new XMLHttpRequest();
+            var contenedor = document.getElementById("tabla");
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    var listado = JSON.parse(xhttp.responseText);
+                    console.log(listado)
+                    if(listado.length == 0){
+                        contenedor.innerHTML = "";
+                        document.getElementById("errores").innerHTML = "Hoy no tiene clases";
+                    }else{
+                        contenedor.innerHTML = "";
+                        document.getElementById("errores").innerHTML = "";
+                        contenedor.innerHTML ="<tr><th>Nombre</th><th>Instrumento</th><th>Hora</th><th>Falta</th></tr>";
+                        listado.forEach((elemento) => {
+                            contenedor.innerHTML += `<tr onmouseout = "quitarTelefono()"onmouseover = 'mostrarTelefono(${elemento.telefono})'><td>${elemento.nombre}</td><td>${elemento.instrumento}</td><td>${elemento.hora}</td><td><button onclick = "ponerFalta(${elemento.id}, '${elemento.hora}')">Poner Falta</button></td></tr>`
+                        })
+                    }
+                }
+            }
+            xhttp.open("GET", "servidor/lista.php?profesor="+codPRo+"&dia="+dia, true);
+            xhttp.send();
+        }
+        var mostrarTelefono = (elemento) =>{
+            document.getElementById("telefonos").innerHTML = "Teléfono: " + elemento;
+        }
+
+        var quitarTelefono = () =>{
+            document.getElementById("telefonos").innerHTML = "";
+        }
+
+        var ponerFalta = (id, hora) =>{
+            console.log(id)
+            console.log(hora)
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    console.log(xhttp.responseText)
+                   if(xhttp.responseText == 'ok')
+                   {
+                        alert("Todo correcto.")
+                   }
+                   else{
+                       alert("Ya se ha resgistrado la falta");
+                   }
+                }
+            }
+            xhttp.open("POST", "servidor/falta.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("alumno=" + id + "&fecha=" + fechaActual() + "&hora=" + hora);
+        }
+
+    </script>
+    <style>
+        td, tr{
+            border: 1px solid black;
+            
+        }
+        tr:hover{
+            background-color: gray;
+        }
+        #telefonos{
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Montiel Música S.L.</h1>
+    Usuario: <input type="text" id="user">
+    Contraseña: <input type="password" id="pass">
+    <button onclick="login()" id="enviar">Enviar</button><br><br>
+
+    <div id="clases">
+        <table id="tabla"> 
+        </table>
+    </div>
+
+    <div id="errores">
+        
+    </div>
+    <br><br>
+    <div id="telefonos">
+        
+    </div>
+</body>
+
+</html>
