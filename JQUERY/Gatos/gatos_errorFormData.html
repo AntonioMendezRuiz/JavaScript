@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+    <script>
+    $(function(){
+        $("#form").submit(function(evento){
+            evento.preventDefault();
+            var formulario =new FormData($("#form")[0]);
+            console.log(formulario);
+//            objeto.append();
+            $.ajax({
+                url: "gatos_insert_json.php",
+                method: "POST",
+                contentType: false,
+                processData : false,
+                data : formulario,
+                success: function(data){
+                    console.log(data);
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <form id="form" action="" method="POST">
+    Nombre: <input type="text" name="nombre">
+    Fecha <input type="date" name="fecha_nacimiento">
+    <input type="submit">
+    </form>
+</body>
+</html>
