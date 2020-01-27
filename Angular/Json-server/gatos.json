@@ -1,0 +1,16 @@
+{
+    "gatos": [
+        {
+            "id": 1,
+            "nombre": "Benito",
+            "raza": "Siamés",
+            "edad": 15
+        },
+        {
+            "id": 2,
+            "nombre": "Pitufa",
+            "raza": "Común",
+            "edad": 16
+        }
+    ]
+}
