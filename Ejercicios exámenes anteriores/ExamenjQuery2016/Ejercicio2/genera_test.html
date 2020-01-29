@@ -8,22 +8,141 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
-            var lenguaje = $('#lenguaje').val()
-            console.log(lenguaje)
-            $("#generar").click(function(){
-                $.getJSON("test.json", function(data){
-                    if(lenguaje == "javascript"){
-                    console.log(data[0])
-                    }else if(lenguaje == "jquery"){
 
-                    }else if(lenguaje == "angular"){
-                        
-                    }else if(lenguaje == "php"){
-                        
+            //función para generar aleatorios entre dos enteros dados
+            function random(min, max) {
+                return Math.floor(Math.random() * (max - min)) + min;
+            }
+
+            //Función para eliminar elementos de un array (no se está usando)
+            function removeItemFromArr ( arr, item ) {
+                var i = arr.indexOf( item );
+                arr.splice( i, 1 );
+            }
+
+            var todo = [];
+            var javascript = [];
+            var jquery = [];
+            var angular = [];
+            var php = [];
+            var sql = [];
+
+            //Llamada al JSON con las preguntas
+            $.getJSON("test.json", function(data){
+                todo = data;
+                $.each(data, function(index, pregunta){
+                    if(pregunta.categoria == 1){
+                        javascript.push(pregunta);
+                    }else if(pregunta.categoria == 2){
+                        jquery.push(pregunta);
+                    }else if(pregunta.categoria == 3){
+                        angular.push(pregunta); 
+                    }else if(pregunta.categoria == 4){
+                        php.push(pregunta);
                     }else{
-                        
+                        sql.push(pregunta);
                     }
-                })
+                });
+            });
+            //Función que genera las respuestas de cada pregunta
+            function creaTest(categoria, num){
+                let preguntasRandom = []
+                for(var i = 0; i < num; i++){
+                    eligePregunta = random(0,categoria.length);
+                    if($.inArray(eligePregunta, preguntasRandom) == 1){
+                        i--;
+                    }else{
+                        preguntasRandom.push(eligePregunta);
+                    }
+                }
+                for(var i = 0; i < num; i++){
+                    var a = i;
+                        $("#preguntas").html($("#preguntas").html() + `<br><div id = "${categoria[preguntasRandom[i]].idpregunta}">${a+1}-.${categoria[preguntasRandom[i]].pregunta}<br><br></div>`);
+                        $.each(categoria[preguntasRandom[i]].respuestas, function(index, respuesta){
+                                    $(`#${categoria[preguntasRandom[a]].idpregunta}`).html($(`#${categoria[preguntasRandom[a]].idpregunta}`).html() + `<input type="radio" value ="${respuesta.idrespuesta}" id = "${respuesta.idrespuesta}"/>
+                                    ${respuesta.respuesta}</br>`);  
+                        });
+                        //por si queremos borrar para que haya un tope de preguntas posibles
+                        //removeItemFromArr(categoria, categoria[preguntasRandom[i]]);
+                }
+            }
+            //Genera los test y las respuestas 
+            $("#generar").click(function(){
+                var lenguaje = $('#lenguaje').val();
+                var numPreguntas = $('#num').val();
+                var eligePregunta = 0;
+                $("#preguntas").html("");
+                if(lenguaje == "javascript"){
+                    if(!javascript.length == 0){
+                        creaTest(javascript, numPreguntas);
+                        $("#generar").attr("disabled", true);
+                        $("#corregir").show();
+                    }
+                    else{
+                        $("#preguntas").html("No hay preguntas sobre esta materia.");
+                    }
+                }else if(lenguaje == "jquery"){
+                    if(!jquery.length == 0){
+                        creaTest(jquery, numPreguntas);
+                        $("#generar").attr("disabled", true);
+                        $("#corregir").show();
+                    }
+                    else{
+                        $("#preguntas").html("No hay preguntas sobre esta materia.");
+                    }
+                }else if(lenguaje == "angular"){
+                    if(!angular.length == 0){
+                        creaTest(angular, numPreguntas);
+                        $("#generar").attr("disabled", true);
+                        $("#corregir").show();
+                    }
+                    else{
+                        $("#preguntas").html("No hay preguntas sobre esta materia.");
+                    }
+                }else if(lenguaje == "php"){
+                    if(!php.length == 0){
+                        creaTest(php, numPreguntas);
+                        $("#generar").attr("disabled", true);
+                        $("#corregir").show();
+                    }
+                    else{
+                        $("#preguntas").html("No hay preguntas sobre esta materia.");
+                    }
+                }else{
+                    if(!sql.length == 0){
+                        creaTest(sql, numPreguntas);
+                        $("#generar").attr("disabled", true);
+                        $("#corregir").show();
+                    }
+                    else{
+                        $("#preguntas").html("No hay preguntas sobre esta materia.");
+                    }
+                }
+            });
+
+            //corrige el examen y muestra la nota
+            $("#corregir").click(function(){
+                let aciertos = 0;
+                let fallos  = 0;
+                let nota = 0;
+                let totalPreguntas = $("#num").val();
+                let respuestas = [];
+                for(var i = 0; i < todo.length; i++){
+                    respuestas.push(todo[i].correcta);
+                }
+                $("input[type=radio]:checked").each(function() {
+                    var value = $(this).val();
+                   
+                    if($.inArray(value,respuestas) == 0){
+                        fallos++;
+                    }
+                    else{
+                        aciertos++;
+                    }
+                });
+                nota = ((aciertos-fallos)*10)/(totalPreguntas);
+                $("#generar").attr("disabled", false);
+                $("#nota").html(`Tu nota es ${nota}`);
             })
         });
     </script>
@@ -37,10 +156,14 @@
         <option value="php">PHP</option>
         <option value="sql">SQL</option>
     </select>
-    Cantidad de preguntas <input type="number" min = 0>
+    Cantidad de preguntas <input id = 'num' type="number" min = 0 value = 10>
     <input id="generar" type="button" value="Generar">
 
-    <div id="respuesta">
+    <div id="preguntas">
+
+    </div><br><br>
+    <input id="corregir" type="button" value="Corregir" style="display: none;">
+    <div id="nota">
 
     </div>
 </body>
