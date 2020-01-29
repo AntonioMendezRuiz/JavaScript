@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
-
+            
             //función para generar aleatorios entre dos enteros dados
             function random(min, max) {
                 return Math.floor(Math.random() * (max - min)) + min;
@@ -118,6 +118,12 @@
                         $("#preguntas").html("No hay preguntas sobre esta materia.");
                     }
                 }
+                //creacion del timer
+                var start = new Date;
+
+                setInterval(function() {
+                    $('#timer').html(Math.floor((new Date - start) / 1000)+ " segundos");
+                }, 1000);
             });
 
             //corrige el examen y muestra la nota
@@ -158,11 +164,13 @@
     </select>
     Cantidad de preguntas <input id = 'num' type="number" min = 0 value = 10>
     <input id="generar" type="button" value="Generar">
-
+    <div style = "display: inline;" id="timer"></div>
     <div id="preguntas">
 
-    </div><br><br>
+    </div>
+    <br><br>
     <input id="corregir" type="button" value="Corregir" style="display: none;">
+    <br><br>
     <div id="nota">
 
     </div>
