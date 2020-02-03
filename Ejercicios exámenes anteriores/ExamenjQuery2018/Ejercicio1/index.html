@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejercicio 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        var palabras = "murcielago";
+        var regex = /[a|á|A|Á]{1,}[e|E|é|É]{1,}[i|í|I|Í]{1,}[o|O|ó|Ó]{1,}[u|U|ú|Ú]{1,}/gi;
+        var regex2 = /[aeiou]+/gi;
+        $.ajax({
+				url: "diccionario.js",
+				type: "get",
+				dataType : 'json',
+				success: function (request) {
+					obj = request.sort();
+					for (var i = 0; i < obj.length; i++) {
+						$("#menu").append(`<option>${obj[i]}</option>`)
+					}
+				}
+            });
+            console.log(regex.test(palabras))
+            $("#palabras").html();
+    </script>
+</head>
+<body>
+    <div id="palabras">
+        
+    </div>
+</body>
+</html>
