@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,27 +8,39 @@
     <title>Ejercicio 1</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        var palabras = "murcielago";
-        var regex = /[a|á|A|Á]{1,}[e|E|é|É]{1,}[i|í|I|Í]{1,}[o|O|ó|Ó]{1,}[u|U|ú|Ú]{1,}/gi;
-        var regex2 = /[aeiou]+/gi;
-        $.ajax({
-				url: "diccionario.js",
-				type: "get",
-				dataType : 'json',
-				success: function (request) {
-					obj = request.sort();
-					for (var i = 0; i < obj.length; i++) {
-						$("#menu").append(`<option>${obj[i]}</option>`)
-					}
-				}
+        $(document).ready(function () {
+            //Array final
+            var palabras = [];
+            //Expresión regular para encontrar palabras con todas las vocales
+            var regex = /\b(?=\w*?a)(?=\w*?e)(?=\w*?i)(?=\w*?o)(?=\w*?u)[a-zA-Z]+\b/gi;
+            $.ajax({
+                url: "diccionario.js",
+                type: "GET",
+                success: function () {
+                    //Dado que el diccionario dado viene todo en minúscula y sin acentos no realizamos ninguna transformación
+                    let a = JSON.parse(diccionario);
+                    for (var i = 0; i < a.length; i++) {
+                        if (regex.test(a[i])) {
+                            palabras.push(a[i]);
+                        }
+                    }
+                    //Ordenamos las palabras
+                    palabras.sort();
+                    //Presentamos la información
+                    for (var i = 0; i < palabras.length; i++) {
+                        $("#palabras").html($("#palabras").html()+ palabras[i] + "<br>");
+                        console.log(palabras[i])
+                    }
+                }
             });
-            console.log(regex.test(palabras))
-            $("#palabras").html();
+        });
     </script>
 </head>
+
 <body>
     <div id="palabras">
-        
+
     </div>
 </body>
+
 </html>
