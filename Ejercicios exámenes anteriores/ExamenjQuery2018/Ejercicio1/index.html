@@ -12,7 +12,7 @@
             //Array final
             var palabras = [];
             //Expresión regular para encontrar palabras con todas las vocales
-            var regex = /\b(?=\w*?a)(?=\w*?e)(?=\w*?i)(?=\w*?o)(?=\w*?u)[a-zA-Z]+\b/gi;
+            var regex = /\b(?=\w*?a)(?=\w*?e)(?=\w*?i)(?=\w*?o)(?=\w*?u|ü)[a-zA-Z]+\b/gi;
             $.ajax({
                 url: "diccionario.js",
                 type: "GET",
@@ -21,7 +21,7 @@
                     let a = JSON.parse(diccionario);
                     for (var i = 0; i < a.length; i++) {
                         if (regex.test(a[i])) {
-                            palabras.push(a[i]);
+                            palabras.push(a[i].toLowerCase());
                         }
                     }
                     //Ordenamos las palabras
@@ -29,8 +29,8 @@
                     //Presentamos la información
                     for (var i = 0; i < palabras.length; i++) {
                         $("#palabras").html($("#palabras").html()+ palabras[i] + "<br>");
-                        console.log(palabras[i])
                     }
+                    console.log(palabras.length)
                 }
             });
         });
