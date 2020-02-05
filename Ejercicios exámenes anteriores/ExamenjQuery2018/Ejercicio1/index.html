@@ -12,7 +12,7 @@
             //Array final
             var palabras = [];
             //Expresión regular para encontrar palabras con todas las vocales
-            var regex = /\b(?=\w*?a)(?=\w*?e)(?=\w*?i)(?=\w*?o)(?=\w*?u|ü)[a-zA-Z]+\b/gi;
+            var regex = /(?=\w*?a)(?=\w*?e)(?=\w*?i)(?=\w*?o)(?=\w*?u|ü)/gi;
             $.ajax({
                 url: "diccionario.js",
                 type: "GET",
@@ -20,8 +20,9 @@
                     //Dado que el diccionario dado viene todo en minúscula y sin acentos no realizamos ninguna transformación
                     let a = JSON.parse(diccionario);
                     for (var i = 0; i < a.length; i++) {
+                        let b = a[i].toLowerCase();
                         if (regex.test(a[i])) {
-                            palabras.push(a[i].toLowerCase());
+                            palabras.push(b);
                         }
                     }
                     //Ordenamos las palabras
