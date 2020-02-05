@@ -12,7 +12,7 @@
             //Array final
             var palabras = [];
             //Expresión regular para encontrar palabras con todas las vocales
-            var regex = /(?=\w*?a)(?=\w*?e)(?=\w*?i)(?=\w*?o)(?=\w*?u|ü)/gi;
+            var regex = /(?=.*?a)(?=.*?e)(?=.*?i)(?=.*?o)(?=.*?[uü])/gi;
             $.ajax({
                 url: "diccionario.js",
                 type: "GET",
