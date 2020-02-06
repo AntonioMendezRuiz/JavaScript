@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Preguntas</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            
+            //Función para generar número aleatorios
+            function random(min, max) {
+                return Math.floor(Math.random() * (max - min)) + min;
+            }
+
+            //Función para borrar elemento de array
+            function removeItemFromArr(arr, item) {
+                var i = arr.indexOf(item);
+                arr.splice(i, 1);
+            }
+
+            //Aquí guardaremos todas las preguntas y las iremos eliminando conforme vayan saliendo
+            var todo = [];
+
+            //Extraemos las preguntas desde el JSON
+            $.ajax({
+                url: "preguntas.json",
+                type: "GET",
+                async: false,
+                success: function (data) {
+                    $.each(data, function (index, pregunta) {
+                        todo.push(pregunta);
+                    });
+                }
+            });
+
+            //Comenzamos el juego
+            $("#comenzar").click(function () {
+                $("#bienvenida").html("<h2>Bienvenido al juego de las preguntas</h2>");
+                $("#comenzar").prop("disabled", true);
+                $("#nombre").prop("disabled", true);
+                $("#next").show();
+                $("#stop").show();
+            });
+
+            //Variables
+            var puntuacion = 0;
+            var contador = 1;
+            //Función que va presentando las preguntas y sus rspuestas
+            $("#next").click(function () {
+                $("#bienvenida").html("");
+                //Si aun quedan preguntas disponibles
+                if (todo.length != 0) {
+                    let aleatorio = random(0, todo.length);
+                    let pregunta = todo[aleatorio];
+                    removeItemFromArr(todo, pregunta);
+                    $("#tema").html(pregunta.tema);
+                    $("#preguntas").html(pregunta.pregunta);
+
+                    //Aquí generamos las respuestas
+                    $.each(pregunta.respuestas, function (index, respuesta) {
+                        $("#respuestas").html($("#respuestas").html() + `<input type="button" id="${respuesta.correcta}" value="${respuesta.respuesta}">`);
+                    });
+                    $("#next").hide();
+                    $("#stop").hide();
+
+                    //Función para cuando respondemos de forma correcta
+                    $("input[id='s']").click(function () {
+                        console.log(puntuacion)
+                        console.log(contador)
+                        puntuacion = Math.pow(2, contador);
+                        contador++;
+
+                        //Vamos borrando u ocultando todo lo que no queremos que se vea
+                        $("#preguntas").html("");
+                        $("#respuestas").html("");
+                        $("#tema").html("");
+                        $("#next").show();
+                        $("#stop").show();
+                        $("#puntuacion").html(puntuacion);
+                    });
+
+                    //Función para cuando respondemos de forma incorrecta
+                    $("input[id='n']").click(function () {
+                        $("#preguntas").html("");
+                        $("#respuestas").html("");
+                        $("#tema").html("");
+                        $("#bienvenida").html(`Respuesta incorrecta. Tu puntuación es: ${puntuacion}`);
+
+                        //Parámetros a enviar
+                        var parametros = {
+                            'puntos': puntuacion,
+                            'usuario': $("#nombre").val()
+                        }
+                        $.ajax({
+                            url: "graba.php",
+                            type: "POST",
+                            data: parametros
+                        });
+                        $("#again").show();
+                        $("#again").click(function () {
+                            location.reload();
+                        });
+                    });
+
+                //Si ya no quedan preguntas
+                } else {
+                    $("#next").hide();
+                    $("#stop").hide();
+                    $("#bienvenida").html(`No hay mas preguntas, has alzanzado la puntuación máxima. Tu puntuación es: ${puntuacion}`);
+
+                    //Parámetros a enviar
+                    var parametros = {
+                        'puntos': puntuacion,
+                        'usuario': $("#nombre").val()
+                    }
+                    $.ajax({
+                        url: "graba.php",
+                        type: "POST",
+                        data: parametros
+                    });
+                    $("#again").show();
+                    $("#again").click(function () {
+                        location.reload();
+                    });
+                }
+            });
+
+            //Función para cuando queramos plantarnos
+            $("#stop").click(function () {
+                $("#next").hide();
+                $("#stop").hide();
+                $("#bienvenida").html(`Te has plantado. Tu puntuación es: ${puntuacion}`);
+
+                //Parámetros a enviar
+                var parametros = {
+                    'puntos': puntuacion,
+                    'usuario': $("#nombre").val()
+                }
+                $.ajax({
+                    url: "graba.php",
+                    type: "POST",
+                    data: parametros
+                });
+                $("#again").show();
+                $("#again").click(function () {
+                    location.reload();
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    Nombre: <input type="text" id="nombre" required><input type="button" id="comenzar" value="Comenzar"> Puntos: <span
+        id="puntuacion">-</span><br><br>
+
+    <input type="button" id="next" value="Pregunta" style="display: none;"><input type="button" id="stop"
+        value="Plantarse" style="display: none;"><br><br>
+
+    <h3 id="tema">
+
+    </h3><br><br>
+    <div id="bienvenida">
+
+    </div>
+    <div id="preguntas">
+
+    </div><br><br>
+    <div id="respuestas"></div>
+    <input type="button" id="again" value="Jugar otra vez" style="display: none;">
+</body>
+
+</html>
