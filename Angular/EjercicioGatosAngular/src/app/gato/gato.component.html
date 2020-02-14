@@ -16,8 +16,8 @@
         <td><button (click)="delGato(i)">Eliminar</button></td>
     </tr>
 </table>
-<h3>Nuevo gato</h3>
-Nombre <input [(ngModel)]="gato.nombre">
-Raza <input [(ngModel)]="gato.raza">
-Edad <input [(ngModel)]="gato.edad">
-<button (click)="addGato()">Añadir gato</button>
+<app-gato-mensajes [mensaje]="'Hola mundo'"></app-gato-mensajes>
+<app-gato-nuevo (mensajeDelHijo)="addGatoOutput($event)"></app-gato-nuevo>
+<ul>
+    <li *ngFor="let n of numeros">{{n}}</li>
+</ul>

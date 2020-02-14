@@ -4,11 +4,15 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { GatoComponent } from './gato/gato.component';
+import { GatoMensajesComponent } from './gato-mensajes/gato-mensajes.component';
+import { GatoNuevoComponent } from './gato-nuevo/gato-nuevo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GatoComponent
+    GatoComponent,
+    GatoMensajesComponent,
+    GatoNuevoComponent
   ],
   imports: [
     BrowserModule,

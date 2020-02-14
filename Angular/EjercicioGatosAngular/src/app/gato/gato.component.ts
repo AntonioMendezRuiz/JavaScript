@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Gato } from '../gato';
+import { GatoService } from '../gato.service';
 
 @Component({
   selector: 'app-gato',
@@ -14,7 +15,7 @@ export class GatoComponent implements OnInit {
 
   arrayGatos:Gato[];
 
-  constructor() { 
+  constructor(private gatoService: GatoService) { 
   }
 
   ngOnInit() {
@@ -28,6 +29,7 @@ export class GatoComponent implements OnInit {
       new Gato('Sira','Común',1)
     ];
     this.color = "red";
+    this.gatoService.addNumero();
   }
 
   cambiaVisibilidad(){
