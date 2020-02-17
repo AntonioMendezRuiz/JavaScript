@@ -1,0 +1,8 @@
+<h2>Componente Lista-Gatoss</h2>
+<hr>
+<ul>
+ <li *ngFor="let g of gatos">
+ {{g.nombre | uppercase}} nació el {{g.fNacimiento | date:'dd/MM/yyyy'}}
+ <span *ngIf = "g.fDefuncion"> y murió con {{gatoService.edad(g.fNacimiento, g.fDefuncion)}} años.</span>
+ <span *ngIf = "!g.fDefuncion">y tiene {{gatoService.edad(g.fNacimiento)}} años.</span>
+ </li>
