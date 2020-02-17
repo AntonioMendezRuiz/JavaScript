@@ -1,0 +1,5 @@
+<h2>Mis gatos</h2>
+<ul class="gatos">
+ <li *ngFor="let gato of gatos">
+<span class="badge">{{gato.id | number: '2.0-0'}}</span> {{gato.nombre}}
+ </li>
