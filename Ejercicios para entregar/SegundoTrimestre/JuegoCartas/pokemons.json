@@ -1,0 +1,292 @@
+[
+    {
+        "id": "1",
+        "url": "pokemon/arcanine.png",
+        "name": "arcanine"
+    },
+    {
+        "id": "2",
+        "url": "pokemon/bellsprout.png",
+        "name": "bellsprout"
+    },
+    {
+        "id": "3",
+        "url": "pokemon/blastoise.png",
+        "name": "blastoise"
+    },
+    {
+        "id": "4",
+        "url": "pokemon/butterfree.png",
+        "name": "butterfree"
+    },
+    {
+        "id": "5",
+        "url": "pokemon/caterpie.png",
+        "name": "caterpie"
+    },
+    {
+        "id": "6",
+        "url": "pokemon/clefable.png",
+        "name": "clefable"
+    },
+    {
+        "id": "7",
+        "url": "pokemon/clefairy.png",
+        "name": "clefairy"
+    },
+    {
+        "id": "8",
+        "url": "pokemon/cubone.png",
+        "name": "cubone"
+    },
+    {
+        "id": "9",
+        "url": "pokemon/dewgong.png",
+        "name": "dewgong"
+    },
+    {
+        "id": "10",
+        "url": "pokemon/diglett.png",
+        "name": "diglett"
+    },
+    {
+        "id": "11",
+        "url": "pokemon/doduo.png",
+        "name": "doduo"
+    },
+    {
+        "id": "12",
+        "url": "pokemon/drowzee.png",
+        "name": "drowzee"
+    },
+    {
+        "id": "13",
+        "url": "pokemon/dugtrio.png",
+        "name": "dugtrio"
+    },
+    {
+        "id": "14",
+        "url": "pokemon/ekans.png",
+        "name": "ekans"
+    },
+    {
+        "id": "15",
+        "url": "pokemon/gastly.png",
+        "name": "gastly"
+    },
+    {
+        "id": "16",
+        "url": "pokemon/gengar.png",
+        "name": "gengar"
+    },
+    {
+        "id": "17",
+        "url": "pokemon/geodude.png",
+        "name": "geodude"
+    },
+    {
+        "id": "18",
+        "url": "pokemon/gloom.png",
+        "name": "gloom"
+    },
+    {
+        "id": "19",
+        "url": "pokemon/golbat.png",
+        "name": "golbat"
+    },
+    {
+        "id": "20",
+        "url": "pokemon/goldeen.png",
+        "name": "goldeen"
+    },
+    {
+        "id": "21",
+        "url": "pokemon/golem.png",
+        "name": "golem"
+    },
+    {
+        "id": "22",
+        "url": "pokemon/graveler.png",
+        "name": "graveler"
+    },
+    {
+        "id": "23",
+        "url": "pokemon/growlithe.png",
+        "name": "growlithe"
+    },
+    {
+        "id": "24",
+        "url": "pokemon/haunter.png",
+        "name": "haunter"
+    },
+    {
+        "id": "25",
+        "url": "pokemon/hypno.png",
+        "name": "hypno"
+    },
+    {
+        "id": "26",
+        "url": "pokemon/jigglypuff.png",
+        "name": "jigglypuff"
+    },
+    {
+        "id": "27",
+        "url": "pokemon/koffing.png",
+        "name": "koffing"
+    },
+    {
+        "id": "28",
+        "url": "pokemon/krabby.png",
+        "name": "krabby"
+    },
+    {
+        "id": "29",
+        "url": "pokemon/lickitung.png",
+        "name": "lickitung"
+    },
+    {
+        "id": "30",
+        "url": "pokemon/marowak.png",
+        "name": "marowak"
+    },
+    {
+        "id": "31",
+        "url": "pokemon/meowth.png",
+        "name": "meowth"
+    },
+    {
+        "id": "32",
+        "url": "pokemon/metapod.png",
+        "name": "metapod"
+    },
+    {
+        "id": "33",
+        "url": "pokemon/mew.png",
+        "name": "mew"
+    },
+    {
+        "id": "34",
+        "url": "pokemon/mewtwo.png",
+        "name": "mewtwo"
+    },
+    {
+        "id": "35",
+        "url": "pokemon/oddish.png",
+        "name": "oddish"
+    },
+    {
+        "id": "36",
+        "url": "pokemon/persian.png",
+        "name": "persian"
+    },
+    {
+        "id": "37",
+        "url": "pokemon/pikachu.png",
+        "name": "pikachu"
+    },
+    {
+        "id": "38",
+        "url": "pokemon/poliwag.png",
+        "name": "poliwag"
+    },
+    {
+        "id": "39",
+        "url": "pokemon/poliwhirl.png",
+        "name": "poliwhirl"
+    },
+    {
+        "id": "40",
+        "url": "pokemon/porygon.png",
+        "name": "porygon"
+    },
+    {
+        "id": "41",
+        "url": "pokemon/raichu.png",
+        "name": "raichu"
+    },
+    {
+        "id": "42",
+        "url": "pokemon/rattata.png",
+        "name": "rattata"
+    },
+    {
+        "id": "43",
+        "url": "pokemon/rhyhorn.png",
+        "name": "rhyhorn"
+    },
+    {
+        "id": "44",
+        "url": "pokemon/sandshrew.png",
+        "name": "sandshrew"
+    },
+    {
+        "id": "45",
+        "url": "pokemon/sandslash.png",
+        "name": "sandslash"
+    },
+    {
+        "id": "46",
+        "url": "pokemon/seel.png",
+        "name": "seel"
+    },
+    {
+        "id": "47",
+        "url": "pokemon/slowbro.png",
+        "name": "slowbro"
+    },
+    {
+        "id": "48",
+        "url": "pokemon/slowpoke.png",
+        "name": "slowpoke"
+    },
+    {
+        "id": "49",
+        "url": "pokemon/snorlax.png",
+        "name": "snorlax"
+    },
+    {
+        "id": "50",
+        "url": "pokemon/sprearow.png",
+        "name": "sprearow"
+    },
+    {
+        "id": "51",
+        "url": "pokemon/squirtle.png",
+        "name": "squirtle"
+    },
+    {
+        "id": "52",
+        "url": "pokemon/tangela.png",
+        "name": "tangela"
+    },
+    {
+        "id": "53",
+        "url": "pokemon/tentacool.png",
+        "name": "tentacool"
+    },
+    {
+        "id": "54",
+        "url": "pokemon/togepi.png",
+        "name": "togepi"
+    },
+    {
+        "id": "55",
+        "url": "pokemon/venonat.png",
+        "name": "venonat"
+    },
+    {
+        "id": "56",
+        "url": "pokemon/weepinbell.png",
+        "name": "weepinbell"
+    },
+    {
+        "id": "57",
+        "url": "pokemon/weezing.png",
+        "name": "weezing"
+    },
+    {
+        "id": "58",
+        "url": "pokemon/zubat.png",
+        "name": "zubat"
+    }
+]
