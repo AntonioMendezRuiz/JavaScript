@@ -1,11 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego Cartas</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var pokemons = [];
+            var selecionados = [];
+            var ganar = 16;
+            var contador = 0;
+            var primera = null;
+            var segunda = null;
+
+            function final() {
+                if (ganar == 0) {
+                    $("#container").html("<h1>HAS GANADO</h1>");
+                }
+            }
+            function comprobar(carta1, carta2) {
+                if ($(carta1).attr("id") != $(carta2).attr("id")) {
+                    setTimeout(() => {
+                        $(carta1).attr("src", "pokemons/dorso.png")
+                        $(carta2).attr("src", "pokemons/dorso.png")
+                        primera = null;
+                        segunda = null;
+                    }, 1000)
+
+                }
+                else {
+                    setTimeout(() => {
+                        $(carta1).attr("class", "encontrada");
+                        $(carta2).attr("class", "encontrada");
+                        primera = null;
+                        segunda = null;
+                    }, 1000)
+
+                    ganar = ganar - 2;
+                    final();
+                }
+            }
+
+
+            function mostrarDorso(dorsos) {
+                for (let i = 0; i < 16; i++) {
+                    $("#container").html($("#container").html() + `<img src="pokemons/dorso.png" class = "dorso" id = "${selecionados[i].id}">`);
+                }
+            }
+
+            $.ajax({
+                url: "pokemons.json",
+                type: "POST",
+                success: function (data) {
+                    $.each(data, function (index, pokemon) {
+                        pokemons.push(pokemon);
+                    });
+                    //Desordenamos array
+                    pokemons = pokemons.sort(function () { return Math.random() - 0.5 });
+                    //Seleccionamos las cartas
+                    for (let i = 0; i < 8; i++) {
+                        selecionados.push(pokemons[i]);
+                        selecionados.push(pokemons[i]);
+                    }
+                    //volvemos a desordenar
+                    selecionados = selecionados.sort(function () { return Math.random() - 0.5 });
+
+                    mostrarDorso(selecionados);
+                    //mostrarCartas(selecionados);
+
+                    $(".dorso").click(function () {
+                        //console.log(ganar)
+                        contador++;
+                        for (let i = 0; i < 16; i++) {
+                            if ($(this).attr("id") == selecionados[i].id) {
+                                $(this).attr("src", selecionados[i].url);
+                                if (primera == null) {
+                                    primera = this;
+                                }
+                                else {
+                                    segunda = this;
+                                    if (contador == 2) {
+                                        contador = 0;
+                                        comprobar(primera, segunda);
+                                        primera = null;
+                                        segunda = null;
+                                    }
+                                }
+
+                            }
+                        }
+                    });
+                }
+            });
+            //console.log(selecionados)
+        });
+    </script>
+    <style>
+        .inicio {
+            display: flex;
+            justify-content: center;
+        }
+
+        #logo {
+            width: 20%;
+            height: 20%;
+        }
+
+        #container {
+            width: 100%;
+            height: 30%;
+            display: grid;
+            grid-template-columns: repeat(8, auto);
+            grid-auto-rows: 250px;
+        }
+
+        #container img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #container .dorso:hover {
+            cursor: pointer;
+            width: 110%;
+            height: 110%;
+            z-index: 1;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div class="inicio">
+        <img src="pokemons/logoPokemon.svg" alt="logo pokemon" id="logo">
+    </div>
+
+    <div id="container">
+
+    </div>
 </body>
+
 </html>
