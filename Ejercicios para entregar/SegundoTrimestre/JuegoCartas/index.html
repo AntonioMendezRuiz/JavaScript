@@ -14,21 +14,23 @@
             var contador = 0;
             var primera = null;
             var segunda = null;
-
+            var preparado = true;
             function final() {
                 if (ganar == 0) {
-                    $("#container").html("<h1>HAS GANADO</h1>");
+                    $("#container").html("<h1>VICTORIA</h1><br><button onclick='location.reload()'>Jugar otra vez</button>");
+                    $("#container").css({'display':'block', 'text-align':'center', 'height': '100%'});
                 }
             }
             function comprobar(carta1, carta2) {
                 if ($(carta1).attr("id") != $(carta2).attr("id")) {
                     setTimeout(() => {
-                        $(carta1).attr("src", "pokemons/dorso.png")
-                        $(carta2).attr("src", "pokemons/dorso.png")
+                        $(carta1).attr("src", "pokemons/dorso.png");
+                        $(carta2).attr("src", "pokemons/dorso.png");
                         primera = null;
                         segunda = null;
+                        preparado = true;
+                        $(".nada").attr("class", "dorso");
                     }, 1000)
-
                 }
                 else {
                     setTimeout(() => {
@@ -36,17 +38,17 @@
                         $(carta2).attr("class", "encontrada");
                         primera = null;
                         segunda = null;
-                    }, 1000)
+                        preparado = true;
+                    }, 50)
 
                     ganar = ganar - 2;
                     final();
                 }
             }
 
-
             function mostrarDorso(dorsos) {
                 for (let i = 0; i < 16; i++) {
-                    $("#container").html($("#container").html() + `<img src="pokemons/dorso.png" class = "dorso" id = "${selecionados[i].id}">`);
+                    $("#container").html($("#container").html() + `<img src="pokemons/dorso.png" class = "dorso" id = "${selecionados[i].id}" name="${i}">`);
                 }
             }
 
@@ -69,26 +71,25 @@
 
                     mostrarDorso(selecionados);
                     //mostrarCartas(selecionados);
-
                     $(".dorso").click(function () {
-                        //console.log(ganar)
-                        contador++;
-                        for (let i = 0; i < 16; i++) {
-                            if ($(this).attr("id") == selecionados[i].id) {
-                                $(this).attr("src", selecionados[i].url);
-                                if (primera == null) {
-                                    primera = this;
-                                }
-                                else {
-                                    segunda = this;
-                                    if (contador == 2) {
-                                        contador = 0;
-                                        comprobar(primera, segunda);
-                                        primera = null;
-                                        segunda = null;
+                        if (preparado && $(this).attr("class")!="encontrada") {
+                            contador++;
+                            for (let i = 0; i < 16; i++) {
+                                if ($(this).attr("id") == selecionados[i].id) {
+                                    $(this).attr("src", selecionados[i].url);
+                                    if (primera == null) {
+                                        primera = this;
+                                        $(this).attr("class", "nada");
+                                    }
+                                    if(primera != null && $(this).attr("name")!= primera.name) {
+                                        segunda = this;
+                                        if (contador >= 2) {
+                                            contador = 0;
+                                            preparado = false;
+                                            comprobar(primera, segunda);
+                                        }
                                     }
                                 }
-
                             }
                         }
                     });
@@ -96,8 +97,12 @@
             });
             //console.log(selecionados)
         });
+        
     </script>
     <style>
+        body{
+            background-image: url("pokemons/victoria.jpg");
+        }
         .inicio {
             display: flex;
             justify-content: center;
@@ -126,6 +131,15 @@
             width: 110%;
             height: 110%;
             z-index: 1;
+        }
+        .ganar{
+            width: 100%;
+            height: 100vh;
+        }
+        h1{
+            text-align: center;
+            color: black;
+            font-size: 7rem;
         }
     </style>
 </head>
