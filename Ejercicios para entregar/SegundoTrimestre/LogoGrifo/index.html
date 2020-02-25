@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogoGrifo</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    var obj = [];
+    var palabras = [];
+    var definiciones = [];
+    var letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    var arrLetras = desordenar(letras.split(""));
+
+    $(document).ready(function () {
+        $.get("palabras.json", function (data) {
+            obj = data;
+            $.each(obj, function (index, palabra) {
+                palabras[index] = palabra.palabra;
+                definiciones[index] = palabra.definicion;
+            })
+            console.log(palabras)
+            crearTabla(palabras, definiciones);
+            comprobar();
+        });
+
+    });
+
+    function desordenar(arr) {
+        return arr.sort(function () { return Math.random() - 0.5 });
+    }
+
+    function crearTabla(palabras, definiciones) {
+        console.log(arrLetras)
+        $.each(palabras, function (index, palabra) {
+            let arr = palabra.split("");
+            $.each(arr, function (index, letra) {
+                $("#container").html($("#container").html() + `<input id = "letras" onkeydown="onKeyDown(event)" placeholder="${arrLetras.indexOf(letra) + 1}" maxlength = 1>`);
+            });
+            $("#container").html($("#container").html() + `<span id ="definicion">${definiciones[index]}</span><br>`);
+        });
+
+    }
+    function onKeyDown(event) {
+        const key = event.key; // "A", "1", "Enter", "ArrowRight"...
+        console.log("Presionada: " + key.toUpperCase());
+        return key.toUpperCase();
+    }
+
+    function rellenar(){
+
+    }
+    function comprobar(){
+
+    }
+</script>
+
+<style>
+    h1 {
+        font-size: 5rem;
+    }
+
+    #letras {
+        display: inline-block;
+        width: 5%;
+        border: 2px solid black;
+        margin: 20px;
+        margin-top: 20px;
+        font-size: 2rem;
+        text-align: center;
+    }
+    #definicion{
+        margin-left: 40px;
+        font-size: 2rem;
+        color:red;
+    }
+</style>
+
+<body>
+    <h1>LogoGrifo</h1>
+    <div id="container">
+      
+    </div>
+</body>
+
+</html>
