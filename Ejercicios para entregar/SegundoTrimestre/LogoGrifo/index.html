@@ -13,62 +13,89 @@
     var definiciones = [];
     var letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
     var arrLetras = desordenar(letras.split(""));
+    var comprobacion = "";
 
     $(document).ready(function () {
         $.get("palabras.json", function (data) {
             obj = data;
             $.each(obj, function (index, palabra) {
                 palabras[index] = palabra.palabra;
+                comprobacion += palabra.palabra;
                 definiciones[index] = palabra.definicion;
             })
-            console.log(palabras)
+            console.log(comprobacion)
             crearTabla(palabras, definiciones);
-            comprobar();
         });
 
     });
 
     function desordenar(arr) {
-        return arr.sort(function () { return Math.random() - 0.5 });
+        return arr.sort(function (a,b) { return 0.5 - Math.random()});
     }
 
     function crearTabla(palabras, definiciones) {
-        console.log(arrLetras)
+        //console.log(arrLetras)
         $.each(palabras, function (index, palabra) {
             let arr = palabra.split("");
-            $.each(arr, function (index, letra) {
-                $("#container").html($("#container").html() + `<input id = "letras" onkeydown="onKeyDown(event)" placeholder="${arrLetras.indexOf(letra) + 1}" maxlength = 1>`);
+            $.each(arr, function (indice, letra) {
+                $("#container").html($("#container").html() + `<input class="letras" id = "letras${arrLetras.indexOf(letra) + 1}" onkeydown="onKeyDown(event,${arrLetras.indexOf(letra) + 1})" placeholder="${arrLetras.indexOf(letra) + 1}" maxlength = 1>`);
             });
             $("#container").html($("#container").html() + `<span id ="definicion">${definiciones[index]}</span><br>`);
         });
-
+        $("#container").html($("#container").html() + "<button onclick = 'comprobar()'> Comprobar </button>");
+        $("#container").html($("#container").html() + "<div class = 'resultado'></div>");
     }
-    function onKeyDown(event) {
-        const key = event.key; // "A", "1", "Enter", "ArrowRight"...
-        console.log("Presionada: " + key.toUpperCase());
-        return key.toUpperCase();
+    function onKeyDown(event, num) {
+        const key = event.key; 
+        //console.log("Presionada: " + key.toUpperCase());
+        let reg = letras.toLowerCase();
+        if (reg.includes(key)) {
+            rellenar(key, num);
+        }
+        else{
+            this.value = "";
+        }
     }
 
-    function rellenar(){
-
+    function rellenar(key, num){
+        let arr = $(`input[id="letras${num}"]`);
+        $.each(arr, function(index, elemento){
+            elemento.value = key;
+        });
     }
     function comprobar(){
+        let arr = $(`input`);
+        let solucion = [];
+        let fin;
+        $.each(arr, function(index, elemento){
+           solucion += elemento.value;
+        });
+        solucion = solucion.toUpperCase();
+        console.log(solucion)
 
+        if(solucion == comprobacion){
+            $(".resultado").html("CORRECTO");
+        }
+        else{
+            $(".resultado").html("ERROR");
+        }
+      
     }
 </script>
 
 <style>
     h1 {
-        font-size: 5rem;
+        font-size: 3rem;
+        color: black;
     }
 
-    #letras {
+    .letras {
         display: inline-block;
-        width: 5%;
+        width: 3%;
         border: 2px solid black;
-        margin: 20px;
-        margin-top: 20px;
-        font-size: 2rem;
+        margin: 15px;
+        margin-top: 15px;
+        font-size: 1.5rem;
         text-align: center;
     }
     #definicion{
