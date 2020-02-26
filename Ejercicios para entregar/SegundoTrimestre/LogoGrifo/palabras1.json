@@ -1,31 +1,25 @@
 [
     {
-        "id": "1",
         "palabra": "ABIERTO",
         "definicion": "Que no está cerrado"
     },
     {
-        "id": "2",
         "palabra": "CABAÑA",
         "definicion": "Vivienda rural o de montaña"
     },
     {
-        "id": "3",
         "palabra": "MATES",
         "definicion": "Diminutivo de matematicas"
     },
     {
-        "id": "4",
         "palabra": "FOTO",
         "definicion": "Instantanea"
     },
     {
-        "id": "5",
         "palabra": "SOL",
         "definicion": "Astro rey"
     },
     {
-        "id": "6",
         "palabra": "EL",
         "definicion": "Ni tu, ni yo"
     }

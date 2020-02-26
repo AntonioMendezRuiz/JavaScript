@@ -14,9 +14,10 @@
     var letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
     var arrLetras = desordenar(letras.split(""));
     var comprobacion = "";
+    var contador = 3;
 
     $(document).ready(function () {
-        $.get("palabras.json", function (data) {
+        $.get(`palabras${Math.floor(Math.random() * 4 + 1)}.json`, function (data) {
             obj = data;
             $.each(obj, function (index, palabra) {
                 palabras[index] = palabra.palabra;
@@ -30,7 +31,7 @@
     });
 
     function desordenar(arr) {
-        return arr.sort(function (a,b) { return 0.5 - Math.random()});
+        return arr.sort(function (a, b) { return 0.5 - Math.random() });
     }
 
     function crearTabla(palabras, definiciones) {
@@ -40,75 +41,118 @@
             $.each(arr, function (indice, letra) {
                 $("#container").html($("#container").html() + `<input class="letras" id = "letras${arrLetras.indexOf(letra) + 1}" onkeydown="onKeyDown(event,${arrLetras.indexOf(letra) + 1})" placeholder="${arrLetras.indexOf(letra) + 1}" maxlength = 1>`);
             });
-            $("#container").html($("#container").html() + `<span id ="definicion">${definiciones[index]}</span><br>`);
+            if (index == 0) {
+                $("#container").html($("#container").html() + `<span id ="definicion">${definiciones[index]}</span>`);
+                $("#container").html($("#container").html() + `<span id ="intentos">Intentos: ${contador}</span><br>`);
+            }else{
+                $("#container").html($("#container").html() + `<span id ="definicion">${definiciones[index]}</span><br>`);
+            }
         });
-        $("#container").html($("#container").html() + "<button onclick = 'comprobar()'> Comprobar </button>");
+        $("#container").html($("#container").html() + "<button class='comprobar' onclick = 'comprobar()'> Comprobar </button>");
         $("#container").html($("#container").html() + "<div class = 'resultado'></div>");
     }
     function onKeyDown(event, num) {
-        const key = event.key; 
+        const key = event.key;
         //console.log("Presionada: " + key.toUpperCase());
         let reg = letras.toLowerCase();
         if (reg.includes(key)) {
             rellenar(key, num);
         }
-        else{
+        else {
             this.value = "";
         }
     }
 
-    function rellenar(key, num){
+    function rellenar(key, num) {
         let arr = $(`input[id="letras${num}"]`);
-        $.each(arr, function(index, elemento){
+        $.each(arr, function (index, elemento) {
             elemento.value = key;
         });
     }
-    function comprobar(){
+    function comprobar() {
         let arr = $(`input`);
         let solucion = [];
         let fin;
-        $.each(arr, function(index, elemento){
-           solucion += elemento.value;
+        contador--;
+        $.each(arr, function (index, elemento) {
+            solucion += elemento.value;
         });
         solucion = solucion.toUpperCase();
         console.log(solucion)
 
-        if(solucion == comprobacion){
-            $(".resultado").html("CORRECTO");
+        if (solucion == comprobacion && contador > 0) {
+            $(".resultado").html("¡CORRECTO!<br>");
+            $(".resultado").html($(".resultado").html() + "<button onclick='location.reload()'>Jugar otra vez</button>");
+            $(".comprobar").css({"display":"none"});
         }
-        else{
-            $(".resultado").html("ERROR");
+        else {
+            if (contador == 0) {
+                $(".resultado").html("¡PERDISTE!<br>");
+                $(".resultado").html($(".resultado").html() + "<button onclick='location.reload()'>Intentar de nuevo</button>");
+                $(".comprobar").css({"display":"none"});
+                $("#intentos").html(`Intentos: ${contador}`);
+            } else {
+                $(".resultado").html("¡ERROR!");
+                $("#intentos").html(`Intentos: ${contador}`);
+            }
+
         }
-      
+
     }
 </script>
 
 <style>
-    h1 {
-        font-size: 3rem;
-        color: black;
+    body {
+        background-color: black;
+
+        background-size: 100%;
     }
 
+    h1 {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 4rem;
+        color: white;
+    }
+    #intentos{
+        color: white;
+        font-size: 3rem;
+        padding-left: 25%;
+    }
     .letras {
         display: inline-block;
         width: 3%;
-        border: 2px solid black;
+        border: 2px solid red;
         margin: 15px;
         margin-top: 15px;
         font-size: 1.5rem;
         text-align: center;
     }
-    #definicion{
+
+    #definicion {
         margin-left: 40px;
         font-size: 2rem;
-        color:red;
+        color: white;
+    }
+
+    button {
+        border: 2px solid red;
+        background-color: white;
+        width: 15rem;
+        height: 5rem;
+        font-size: 2rem;
+    }
+
+    .resultado {
+        text-align: center;
+        color: white;
+        font-size: 5rem;
     }
 </style>
 
 <body>
     <h1>LogoGrifo</h1>
     <div id="container">
-      
+
     </div>
 </body>
 
