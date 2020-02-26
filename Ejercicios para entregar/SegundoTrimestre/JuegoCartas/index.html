@@ -60,17 +60,19 @@
                         pokemons.push(pokemon);
                     });
                     //Desordenamos array
-                    pokemons = pokemons.sort(function () { return Math.random() - 0.5 });
+                    pokemons = pokemons.sort(function (a,b) { return 0.5 - Math.random() });
                     //Seleccionamos las cartas
                     for (let i = 0; i < 8; i++) {
                         selecionados.push(pokemons[i]);
+                    }
+                    for (let i = 0; i < 8; i++) {
                         selecionados.push(pokemons[i]);
                     }
                     //volvemos a desordenar
-                    selecionados = selecionados.sort(function () { return Math.random() - 0.5 });
+                    selecionados = selecionados.sort(function (a,b) { return 0.5 - Math.random() });
+                    selecionados = selecionados.sort(function (a,b) { return 0.5 - Math.random() });
 
                     mostrarDorso(selecionados);
-                    //mostrarCartas(selecionados);
                     $(".dorso").click(function () {
                         if (preparado && $(this).attr("class")!="encontrada") {
                             contador++;
@@ -95,7 +97,6 @@
                     });
                 }
             });
-            //console.log(selecionados)
         });
         
     </script>
@@ -117,7 +118,7 @@
             width: 100%;
             height: 30%;
             display: grid;
-            grid-gap: 2rem;
+            grid-gap: 1rem;
             grid-template-columns: repeat(8, auto);
             grid-auto-rows: 250px;
         }
